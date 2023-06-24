@@ -9,8 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.0.19",
+    "@chakra-ui/react": "^2.6.0",
+    "@emotion/react": "^11.10.8",
+    "@emotion/styled": "^11.10.8",
+    "dotenv": "^16.0.3",
+    "framer-motion": "^10.12.4",
+    "mongodb": "4.1",
     "next": "13.3.2",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-icons": "^4.8.0",
+    "react-scroll": "^1.8.9",
+    "react-slick": "^0.29.0"
   }
 }
