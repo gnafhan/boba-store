@@ -1,12 +1,16 @@
-import { Box, Button, ChakraProvider, FormControl, FormHelperText, FormLabel, Heading, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper } from '@chakra-ui/react';
+import { Box, Button, ChakraProvider, FormControl, FormHelperText, FormLabel, Heading, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, useToast, Text, Link } from '@chakra-ui/react';
 import axios from 'axios';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useState, useEffect } from 'react';
 
 export default function Home() {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState(0)
     const [image, setImage] = useState('')
+    const [showToast, setShowToast] = useState(false);
+    const router = useRouter()
+    const toast = useToast()
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -18,11 +22,23 @@ export default function Home() {
         try {
             const response = await axios.post('http://localhost:3000/api/create', { name: name, description: description, price: price, image:image});
             console.log(response.data);
+
+          
+            router.push({pathname: '/admin', query: {create: 'success'} })
             // Lakukan apa yang perlu dilakukan setelah sukses mengirim data
           } catch (error) {
             console.error(error);
+            toast({
+              title: 'Error',
+              description: 'Terjadi kesalahan saat mengirim form',
+              status: 'error',
+              duration: 3000,
+              isClosable: true,
+            });
             // Lakukan apa yang perlu dilakukan jika terjadi kesalahan
           }
+
+          
     }
 
             
@@ -33,6 +49,9 @@ export default function Home() {
         <Box height="100vh" display="flex" alignItems="center" justifyContent="center"  width = "50%" mx='auto'>
         
         <FormControl   size='md' border="1px solid #E2E8F0" p={4} borderRadius='10px'>
+            <Link href="/admin" textDecoration='none'><Text>Back</Text></Link>
+            <FormLabel alignItems="center" justifyContent="center" width = "50%" mx='auto' display='flex' fontSize={25}>Create Form</FormLabel>
+
             <FormLabel mt={3}>Name</FormLabel>
             <Input size='md' type='text' onChange={(e) => setName(e.target.value)}  />
             <FormHelperText>Nama dari minuman yang baru</FormHelperText>
