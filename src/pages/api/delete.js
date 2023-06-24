@@ -1,21 +1,24 @@
 import clientPromise from "@/lib/mongodb";
+import { ObjectId } from "mongodb";
 
 //create new collection
 export default async function handler(req, res) {
-    try {
-        const client = await clientPromise
-        const db = client.db('boba')
-        const collection = db.collection('product')
+  try {
+    if (req.method === "POST") {
+        const { id } = req.body
+          const client = await clientPromise
+          const db = client.db('boba')
+          const collection = db.collection('product')
+        //delete one 
+        const result = await collection.deleteOne({"_id": ObjectId(id)})
+    
+        //   const result = await collection.deleteOne({})
+          res.status(200).send(result)
         
-        const deletedId = "644e976163462084164c5878"
-
-        const result = await collection.deleteOne({_id: ObjectId(deletedId)})
-
-
-        res.status(200).send(result)
-        //create new collection
-
-    } catch (error) {
-        res.json(error)
+    } else {
+        res.status(400).send("Method not allowed")
     }
+  } catch (error) {
+    res.json(error)
+  }
 }

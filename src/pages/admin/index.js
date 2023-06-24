@@ -1,15 +1,47 @@
-import { Link } from "@chakra-ui/react";
+import { Icon, Link } from "@chakra-ui/react";
 import { useEffect, useState } from 'react';
-import { Box, ChakraProvider, useToast } from '@chakra-ui/react';
+import {Stack,Divider, ButtonGroup,  Image, Box, ChakraProvider, useToast, SimpleGrid, Card, CardHeader,CardBody, Text, CardFooter, Heading, Button, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Lorem, ModalFooter,} from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import axios from "axios";
+import { CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 
-export default function AdminIndex (){
+
+export async function getServerSideProps() {
+    try {
+      // Mengambil data dari API menggunakan axios atau metode lainnya
+      const response = await axios.get('http://localhost:3000/api/get');
+      
+      // Mendapatkan data dari response
+      const data = response.data;
+      
+      // Mengembalikan data sebagai props
+      return {
+        props: {
+          data,
+        },
+      };
+    } catch (error) {
+      console.error(error);
+      
+      // Mengembalikan props kosong jika terjadi kesalahan
+      return {
+        props: {
+          data: [],
+        },
+      };
+    }
+  }
+
+export default function AdminIndex ({ data }){
     const toast = useToast();
     const router = useRouter();
     const [showToast, setShowToast] = useState(false);
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [selectedData, setSelectedData] = useState(null);
+  
   
     useEffect(() => {
-      const { create } = router.query;
+      const { create, deleted } = router.query;
   
       if (create === 'success' && !showToast) {
         toast.closeAll()
@@ -22,14 +54,100 @@ export default function AdminIndex (){
         });
         setShowToast(true);
       }
+
+      if (deleted  === 'success' && !showToast) {
+        toast.closeAll()
+        toast({
+          title: 'Sukses',
+          description: 'Form berhasil dihapus',
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        });
+        setShowToast(true);
+      }
     }, [router.query, showToast, toast]);
   
+    const handleAction = (data) => {
+        setSelectedData(data);
+        onOpen();
+    }
+
+    const handleDelete = async () => {
+        try {
+            const response = await axios.post(`http://localhost:3000/api/delete`, {id: selectedData._id});
+            console.log(response);
+            onClose();
+            router.push({pathname: '/admin', query: {deleted: 'success'} })
+            // Lakukan apa yang perlu dilakukan setelah sukses mengirim data
+            } catch (error) {
+            console.error(error);
+            toast({
+                title: 'Error',
+                description: 'Terjadi kesalahan saat mengirim form',
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+            });
+            // Lakukan apa yang perlu dilakukan jika terjadi kesalahan
+            }
+    }
+
+
 
     return(
-        <div>
-            <Link href="/admin/create"><h1>create</h1></Link>
-            <Link href="/admin/edit"><h1>edit</h1></Link>
-            <Link href="/admin/delete"><h1>delete</h1></Link>
-        </div>
+        <Box ml="5%">
+            <Box display="flex" flexWrap="wrap" justifyContent="flex-start" p={10}mt={10}>
+            {data.map((item) =>{
+                return(
+                    <Card maxW='sm' m={5}>
+                    <CardBody>
+                      <Image
+                        src={item.image}
+                        alt='Green double couch with wooden legs'
+                        borderRadius='lg'
+                      />
+                      <Stack mt='6' spacing='3'>
+                        <Heading size='md'>{item.name}</Heading>
+                        <Text>
+                          {item.description}
+                        </Text>
+                        <Text color='blue.600' fontSize='2xl'>
+                          {item.price}
+                        </Text>
+                      </Stack>
+                    </CardBody>
+                    {/* <Divider /> */}
+                    <CardFooter>
+                      <ButtonGroup spacing='2'>
+                        <Button variant='solid' colorScheme='teal' onClick={()=>handleAction(item)}>
+                          Action
+                        </Button>
+                      </ButtonGroup>
+                    </CardFooter>
+                  </Card>
+                )
+            })}
+            </Box >
+            <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>{selectedData && selectedData.name}</ModalHeader>
+          <ModalBody>{selectedData && selectedData._id}</ModalBody>
+          <ModalFooter>
+            <Button colorScheme="yellow" mr='auto'onClick={onClose}>
+              <EditIcon mr={2}/> Edit
+            </Button>
+            <Button colorScheme="red"  mr='auto' onClick={handleDelete}>
+              <DeleteIcon mr={2}/>Delete
+            </Button>
+            <Button colorScheme="blue" ml='auto' onClick={onClose}>
+             <CloseIcon mr={2}/> Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+        </Box>
+        
     )
 }
