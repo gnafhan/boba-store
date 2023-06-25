@@ -93,6 +93,10 @@ export default function AdminIndex ({ data }){
             }
     }
 
+    const handleEdit = () =>{
+        router.push({pathname: `/admin/edit/${selectedData._id}`})
+    }
+
 
 
     return(
@@ -135,14 +139,14 @@ export default function AdminIndex ({ data }){
           <ModalHeader>{selectedData && selectedData.name}</ModalHeader>
           <ModalBody>{selectedData && selectedData._id}</ModalBody>
           <ModalFooter>
-            <Button colorScheme="yellow" mr='auto'onClick={onClose}>
+            <Button colorScheme="yellow" mr='auto'onClick={handleEdit}>
               <EditIcon mr={2}/> Edit
             </Button>
             <Button colorScheme="red"  mr='auto' onClick={handleDelete}>
               <DeleteIcon mr={2}/>Delete
             </Button>
             <Button colorScheme="blue" ml='auto' onClick={onClose}>
-             <CloseIcon mr={2}/> Close
+             <CloseIcon></CloseIcon> Close
             </Button>
           </ModalFooter>
         </ModalContent>
