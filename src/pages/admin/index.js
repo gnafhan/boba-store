@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import {Stack,Divider, ButtonGroup,  Image, Box, ChakraProvider, useToast, SimpleGrid, Card, CardHeader,CardBody, Text, CardFooter, Heading, Button, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, Lorem, ModalFooter,} from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import axios from "axios";
-import { CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { AddIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 
 
 export async function getServerSideProps() {
@@ -41,7 +41,7 @@ export default function AdminIndex ({ data }){
   
   
     useEffect(() => {
-      const { create, deleted } = router.query;
+      const { create, deleted, edit } = router.query;
   
       if (create === 'success' && !showToast) {
         toast.closeAll()
@@ -60,6 +60,18 @@ export default function AdminIndex ({ data }){
         toast({
           title: 'Sukses',
           description: 'Form berhasil dihapus',
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        });
+        setShowToast(true);
+      }
+
+      if (edit  === 'success' && !showToast) {
+        toast.closeAll()
+        toast({
+          title: 'Sukses',
+          description: 'Form berhasil diedit',
           status: 'success',
           duration: 3000,
           isClosable: true,
@@ -97,20 +109,33 @@ export default function AdminIndex ({ data }){
         router.push({pathname: `/admin/edit/${selectedData._id}`})
     }
 
+    const handleCreate = () =>{
+        router.push({pathname: `/admin/create`})
+    }
+
+    const renderImage = (imageUrl) => {
+        const isValidImageUrl = imageUrl.endsWith(".png") || imageUrl.endsWith(".jpg");
+    
+        const finalImageUrl = isValidImageUrl ? imageUrl : "https://i.ibb.co/MSs80PY/2.png";
+    
+        return <Image src={finalImageUrl} alt="Image" borderRadius='lg'/>;
+      };
+
 
 
     return(
         <Box ml="5%">
-            <Box display="flex" flexWrap="wrap" justifyContent="flex-start" p={10}mt={10}>
+            <Box mt={10}>
+                <Button colorScheme="teal" onClick={handleCreate}><AddIcon mr={3}/>Create</Button>
+            </Box>
+            <Box display="flex" flexWrap="wrap" justifyContent="flex-start" p={10}>
             {data.map((item) =>{
                 return(
                     <Card maxW='sm' m={5}>
                     <CardBody>
-                      <Image
-                        src={item.image}
-                        alt='Green double couch with wooden legs'
-                        borderRadius='lg'
-                      />
+                    <div key={item.id}>
+          {renderImage(item.image)}
+        </div>
                       <Stack mt='6' spacing='3'>
                         <Heading size='md'>{item.name}</Heading>
                         <Text>
