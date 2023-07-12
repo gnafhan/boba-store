@@ -45,7 +45,7 @@ export default function Home() {
   return (
     <ChakraProvider>
       
-        <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <Box height="100vh" display="flex" alignItems="center" justifyContent="center"  width = "50%" mx='auto'>
         
         <FormControl   size='md' border="1px solid #E2E8F0" p={4} borderRadius='10px'>

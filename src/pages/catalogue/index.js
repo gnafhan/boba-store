@@ -1,4 +1,9 @@
 import axios from 'axios';
+import { ColorModeSwitcher } from '../../../components/ColorModeSwitcher';
+import Fixed from '../../../components/Fixed';
+import CardFront from '../../../components/CardFront';
+import { Box } from '@chakra-ui/react';
+import { Cart } from '../../../components/Cart';
 
 export async function getServerSideProps() {
   try {
@@ -29,10 +34,19 @@ export async function getServerSideProps() {
 export default function ApiDataPage({ data }) {
   return (
     <div>
-      {/* Menggunakan data yang telah diambil */}
+      <Cart/>
+      <Fixed/>
+      <Box p={10} display={"flex"} flexDirection={"row"} flexWrap={'wrap'} gap={10} align="center">
+
       {data.map((item) => (
-        <p key={item._id}>{item.name}</p>
+        <div key={item._id}>
+
+          <CardFront  name={item.name} desc={item.description} price={item.price} image={item.image}/>
+        </div>
       ))}
+      
+      </Box>
+      {/* Menggunakan data yang telah diambil */}
     </div>
   );
 }

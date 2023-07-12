@@ -24,7 +24,7 @@ import {
           textAlign={'center'}
           align={'center'}
           spacing={{ base: 8, md: 10 }}
-          py={{ base: 10, md: 15 }}
+          py={{ base: 10, md: 17 }}
           >
           <Heading
             className={outfit.className}
