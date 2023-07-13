@@ -5,6 +5,7 @@ import CardFront from "../../../components/CardFront";
 import { Box, Text, useBreakpointValue } from "@chakra-ui/react";
 import { Cart } from "../../../components/Cart";
 import { useState } from "react";
+import { CardHorizontal } from "../../../components/CardHorizontal";
 
 export async function getServerSideProps() {
   try {
@@ -47,17 +48,19 @@ export default function ApiDataPage({ data }) {
       <Fixed />
       <Text align="center">{cartItem.length}</Text>
       <Box
-        p={10}
+        p={0}
         display={"flex"}
         flexDirection={"row"}
         flexWrap={"wrap"}
         alignItems={"center"}
         justifyContent={"center"}
-        gap={10}
+        gap={{base:3, md:10}}
         align="center"
-        mx={3}
+        mx={{base:0, md:3}}
       >
-
+        {isSmall?data.map((item) =>(<Box>
+          <CardHorizontal/>
+        </Box>)):null}
         {data.map((item) => (
           <div key={item._id}>
             <CardFront
