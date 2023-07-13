@@ -16,6 +16,12 @@ import {
     useDisclosure,
     Grid,
     GridItem,
+    Menu,
+    MenuButton,
+    MenuList,
+    MenuItem,
+    MenuDivider,
+    Avatar,
   } from '@chakra-ui/react';
   import {
     HamburgerIcon,
@@ -27,6 +33,7 @@ import {
    
   import { Quicksand } from 'next/font/google';
   import { Sigmar } from 'next/font/google';
+import { useState } from 'react';
   const inter = Inter({ subsets: ['latin'] })
   const outfit = Outfit({subsets:['latin']})
   const quicksand = Quicksand({subsets:['latin']})
@@ -35,6 +42,7 @@ import {
   const sigmar = Sigmar({subsets: ['latin'], weight: '400'});
   export default function WithSubnavigation() {
     const { isOpen, onToggle } = useDisclosure();
+    const [isLogin, setIsLogin] = useState(false)
   
     return (
       <Box>
@@ -59,11 +67,11 @@ import {
               aria-label={'Toggle Navigation'}
             />
           </Flex>
-          <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
+          <Flex flex={{ base: 1 }} justify={{ base: 'start', md: 'start' }}>
             <Text
-              textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
+              textAlign={useBreakpointValue({ base: 'left', md: 'left' })}
               className={outfitBold.className}
-              
+              display={{base:"flex", md: 'flex'}}
               // fontSize={20}
               color={useColorModeValue('#422AFB', 'white')}>
               Boba
@@ -73,8 +81,39 @@ import {
               <DesktopNav />
             </Flex>
           </Flex>
-  
-          <Stack
+          
+          {isLogin ? (<div>
+            <Stack
+            flex={{ base: 1, md: 0 }}
+            justify={'flex-end'}
+            direction={'row'}
+            spacing={6}>
+               <Flex alignItems={'center'}>
+            <Menu>
+              <MenuButton
+                as={Button}
+                rounded={'full'}
+                variant={'link'}
+                cursor={'pointer'}
+                minW={0}>
+                <Avatar
+                  size={'sm'}
+                  src={
+                    'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
+                  }
+                />
+              </MenuButton>
+              <MenuList>
+                <MenuItem>Link 1</MenuItem>
+                <MenuItem>Link 2</MenuItem>
+                <MenuDivider />
+                <MenuItem>Link 3</MenuItem>
+              </MenuList>
+            </Menu>
+          </Flex>
+            </Stack>
+            
+          </div>):(<div><Stack
             flex={{ base: 1, md: 0 }}
             justify={'flex-end'}
             direction={'row'}
@@ -87,6 +126,8 @@ import {
               bg={useColorModeValue('white', '#1A202C')}
               className={quicksand.className}
               colorScheme={useColorModeValue('#422AFB', '#B9A2FF')}
+              display={{ base: 'none', md: 'inline-flex' }}
+
               variant={'outline'}
               href={'#'}
               _hover={{
@@ -114,7 +155,9 @@ import {
                 
               Sign Up
             </Button>
-          </Stack>
+          </Stack></div>)}
+
+          
         </Flex>
   
         <Collapse in={isOpen} animateOpacity>
@@ -216,6 +259,55 @@ import {
         {NAV_ITEMS.map((navItem) => (
           <MobileNavItem key={navItem.label} {...navItem} />
         ))}
+        <Stack spacing={4}>
+        <Flex
+          py={2}
+          as={Link}
+          href={ '#'}
+          justify={'space-around'}
+          align={'center'}
+          _hover={{
+            textDecoration: 'none',
+          }}>
+            <Button
+              as={'a'}
+              fontSize={'md'}
+              px={{base: 10, sm: 90}}
+
+              fontWeight={600}
+              color={useColorModeValue('#422AFB', '#B9A2FF')}
+              bg={useColorModeValue('white', '#1A202C')}
+              className={quicksand.className}
+              colorScheme={useColorModeValue('#422AFB', '#B9A2FF')}
+              variant={'outline'}
+              href={'#'}
+              _hover={{
+                bg: useColorModeValue('#f3f0ff', '#2e3046')
+              }}
+              _active={{
+                bg: useColorModeValue('#f3f0ff', '#403f5e')
+              }}
+              >
+              Sign In
+            </Button>
+            <Button
+              as={'a'}
+              display={{ base: 'inline-flex', md: 'inline-flex' }}
+              px={{base: 10, sm: 90}}
+              fontSize={'md'}
+              fontWeight={600}
+              color={useColorModeValue('white', '#1A202C')}
+              bg={useColorModeValue('#422AFB', '#B9A2FF')}
+              className={outfit.className}
+
+              href={'#'}
+              _hover={{bg: useColorModeValue('#3311db', '#9374ff')}}
+              _active={{bg: useColorModeValue('#2111a5', '#7551ff'),}}
+              > 
+              Sign Up
+              </Button>
+            </Flex>
+            </Stack>
       </Stack>
     );
   };
