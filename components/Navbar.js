@@ -40,9 +40,9 @@ import { useState } from 'react';
   const outfitBold = Outfit({subsets:['latin'], weight:'700'})
 
   const sigmar = Sigmar({subsets: ['latin'], weight: '400'});
+  let isLogin = false
   export default function WithSubnavigation() {
     const { isOpen, onToggle } = useDisclosure();
-    const [isLogin, setIsLogin] = useState(true)
   
     return (
       <Box>
@@ -260,7 +260,8 @@ import { useState } from 'react';
         {NAV_ITEMS.map((navItem) => (
           <MobileNavItem key={navItem.label} {...navItem} />
         ))}
-        <Stack spacing={4}>
+        <div>
+        {isLogin?null: (        <Stack spacing={4}>
         <Flex
           py={2}
           as={Link}
@@ -271,7 +272,6 @@ import { useState } from 'react';
             textDecoration: 'none',
           }}>
             <Button
-              as={'a'}
               fontSize={'md'}
               px={{base: 10, sm: 90}}
 
@@ -292,7 +292,6 @@ import { useState } from 'react';
               Sign In
             </Button>
             <Button
-              as={'a'}
               display={{ base: 'inline-flex', md: 'inline-flex' }}
               px={{base: 10, sm: 90}}
               fontSize={'md'}
@@ -308,7 +307,9 @@ import { useState } from 'react';
               Sign Up
               </Button>
             </Flex>
-            </Stack>
+            </Stack>)}
+
+        </div>
       </Stack>
     );
   };
