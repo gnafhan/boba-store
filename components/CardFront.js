@@ -17,7 +17,7 @@ const quicksand = Quicksand({ subsets: ["latin"] });
 const outfitBold = Outfit({ subsets: ["latin"], weight:"600" });
 const outfit = Outfit({ subsets: ["latin"] });
 
-export default function CardFront({name, desc, price, image}) {
+export default function CardFront({name, desc, price, image, addCount}) {
     const localnumber = price
     
   return (
@@ -71,7 +71,7 @@ export default function CardFront({name, desc, price, image}) {
             colorScheme={useColorModeValue("#422AFB", "#B9A2FF")}
             variant={"outline"}
             borderRadius={"full"}
-            href={"#"}
+            onClick={()=>{addCount()}}
             _hover={{
               bg: useColorModeValue("#f3f0ff", "#2e3046"),
             }}
