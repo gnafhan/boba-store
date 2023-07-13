@@ -45,7 +45,7 @@ export default function ApiDataPage({ data }) {
       <Cart/>
       <Fixed/>
       <Text align="center">{cartItem.length}</Text>
-      <Box p={10} display={"flex"} flexDirection={"row"} flexWrap={'wrap'} gap={10} align="center" mx={3} >
+      <Box p={10} display={"flex"} flexDirection={"row"} flexWrap={'wrap'} alignItems={'center'} justifyContent={'center'}  gap={10} align="center" mx={3} >
 
       {data.map((item) => (
         <div key={item._id}>

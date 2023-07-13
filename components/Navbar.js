@@ -42,7 +42,7 @@ import { useState } from 'react';
   const sigmar = Sigmar({subsets: ['latin'], weight: '400'});
   export default function WithSubnavigation() {
     const { isOpen, onToggle } = useDisclosure();
-    const [isLogin, setIsLogin] = useState(false)
+    const [isLogin, setIsLogin] = useState(true)
   
     return (
       <Box>
@@ -72,6 +72,7 @@ import { useState } from 'react';
               textAlign={useBreakpointValue({ base: 'left', md: 'left' })}
               className={outfitBold.className}
               display={{base:"flex", md: 'flex'}}
+              // ml={{base:-3}}
               // fontSize={20}
               color={useColorModeValue('#422AFB', 'white')}>
               Boba
