@@ -21,7 +21,7 @@ export default function CardFront({name, desc, price, image}) {
     const localnumber = price
     
   return (
-    <Card minW="xs" maxW="xs" minH="xl">
+    <Card  maxW="xs" minH="xl">
       <CardBody>
         <Image
           src={image}
