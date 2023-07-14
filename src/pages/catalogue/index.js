@@ -41,19 +41,23 @@ export async function getServerSideProps() {
   }
 }
 
-const CardSm = ({ data }) => {
+const CardSm = ({ data, addCount }) => {
   return (
     <>
       {data.map((item) => (
         <Box key={item._id}>
-          <CardHorizontal />
+          <CardHorizontal name={item.name}
+            desc={item.description}
+            price={item.price}
+            image={item.image}
+            addCount={() => addCount(item.name)} />
         </Box>
       ))}
     </>
   );
 };
 
-const CardMd = ({ data }) => {
+const CardMd = ({ data, addCount }) => {
   return (
     <>
       {data.map((item) => (
@@ -118,9 +122,9 @@ export default function ApiDataPage({ data }) {
           <Spinner size="xl"/>
         </>
       ) : isSM ? (
-        <CardSm data={data} />
+        <CardSm data={data} addCount={addCount} />
       ) : (
-        <CardMd data={data} />
+        <CardMd data={data} addCount={addCount}/>
       )}
         </Box>
         <Box mt={10}>

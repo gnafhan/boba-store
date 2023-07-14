@@ -5,7 +5,8 @@ const quicksand = Quicksand({ subsets: ["latin"] });
 const outfitBold = Outfit({ subsets: ["latin"], weight:"600" });
 const outfit = Outfit({ subsets: ["latin"] })
 
-export const CardHorizontal = (name, desc, image, price) =>{
+export const CardHorizontal = ({name, desc, image, price, addCount}) =>{
+    const localnumber = price
     return(
         <Card
   direction={{ base: 'row' }}
@@ -21,18 +22,21 @@ export const CardHorizontal = (name, desc, image, price) =>{
     objectFit='cover'
     maxW="90px"
     maxH="150px"
-    src='https://i.ibb.co/Xsmx4Kv/1.png'
-    alt='Caffe Latte'
+    src={image}
+    alt={desc}
   />
 
   <Stack>
     <CardBody>
-      <Heading align="start" size='sm'>Matcha Strawberry tea</Heading>
-
-      <Text align={"start"} fontSize={"sm"}>
-        Caffè latte is a coffee beverage masb dms db asdknakldnaldsn
+      <Text color={useColorModeValue("#422AFB", "#B9A2FF")} className={outfit.className} fontWeight={''} align={"start"} fontSize={"md"}>
+       {localnumber.toLocaleString('id-ID', { useGrouping: true })}
       </Text>
-    <Box p={"12px"} pl={0} gap={4} align="start" justify={'space-around'} justifyContent={"space-around"}>
+      <Heading className={outfitBold.className} align="start" size='sm'>{name}</Heading>
+
+      <Text className={outfit.className} align={"start"} fontSize={"sm"}>
+        {desc}
+      </Text>
+    <Box p={"12px"} pt={"5px"} pb={0} pl={0} gap={4} align="start" justify={'space-around'} justifyContent={"space-around"}>
 
     <Button
         size={"sm"} mr={3}
@@ -56,7 +60,7 @@ export const CardHorizontal = (name, desc, image, price) =>{
             colorScheme={useColorModeValue("#422AFB", "#B9A2FF")}
             variant={"outline"}
             borderRadius={"full"}
-            onClick={()=>{""}}
+            onClick={()=>{addCount()}}
             _hover={{
               bg: useColorModeValue("#f3f0ff", "#2e3046"),
             }}
