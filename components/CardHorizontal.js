@@ -12,9 +12,10 @@ export const CardHorizontal = (name, desc, image, price) =>{
   overflow='hidden'
   variant='outline' 
   size="sm"
-  maxW={"xs"}
+  maxW={"sm"}
   maxH={"xs"}
   justify="start"
+  shadow={"md"}
 >
   <Image
     objectFit='cover'
@@ -31,10 +32,10 @@ export const CardHorizontal = (name, desc, image, price) =>{
       <Text align={"start"} fontSize={"sm"}>
         Caffè latte is a coffee beverage masb dms db asdknakldnaldsn
       </Text>
-    <Box p={"12px"} pl={0} gap={4} align="start" justify={'space-between'}>
+    <Box p={"12px"} pl={0} gap={4} align="start" justify={'space-around'} justifyContent={"space-around"}>
 
     <Button
-        size={"sm"}
+        size={"sm"} mr={3}
             fontWeight={600}
             color={useColorModeValue("white", "#1A202C")}
             bg={useColorModeValue("#422AFB", "#B9A2FF")}

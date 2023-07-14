@@ -21,10 +21,10 @@ export default function CardFront({name, desc, price, image, addCount}) {
     const localnumber = price
     
   return (
-    <Card  maxW="xs" minH="xl">
+    <Card  maxW="xs" minH="xl" shadow="md" >
       <CardBody>
         <Image
-          src={image}
+          src={image} 
           alt={desc}
           //   width="293px"
           //   height="205"
@@ -36,16 +36,16 @@ export default function CardFront({name, desc, price, image, addCount}) {
           flexDirection={"row"}
           justifyContent={"space-between"}
         >
-          <Box alignItems={"start"} justifyContent={"start"} align="start">
+          <Box alignItems={"start"} justifyContent={"start"} align="start"  >
             <Text className={outfitBold.className} fontSize={"xl"}>{name}</Text>
-            <Text className={outfit.className} align="start">{desc}</Text>
+            <Text className={outfit.className} fontSize={"md"} align="start">{desc}</Text>
           </Box>
           <Text className={outfit.className} color={useColorModeValue("#422AFB", "#B9A2FF")} fontSize="xl">
             {localnumber.toLocaleString('id-ID', { useGrouping: true })}
           </Text>
         </Stack>
       </CardBody>
-      <CardFooter>
+      <CardFooter align="start" justify="start" alignItems={"start"}>
         <ButtonGroup spacing="3">
           <Button
             as={"a"}

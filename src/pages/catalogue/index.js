@@ -6,6 +6,7 @@ import { Box, Text, useBreakpointValue } from "@chakra-ui/react";
 import { Cart } from "../../../components/Cart";
 import { useState } from "react";
 import { CardHorizontal } from "../../../components/CardHorizontal";
+import LargeWithNewsletter from "../../../components/Footer";
 
 export async function getServerSideProps() {
   try {
@@ -48,20 +49,19 @@ export default function ApiDataPage({ data }) {
       <Fixed />
       <Text align="center">{cartItem.length}</Text>
       <Box
-        p={0}
+        p={2}
         display={"flex"}
         flexDirection={"row"}
         flexWrap={"wrap"}
         alignItems={"center"}
-        justifyContent={"center"}
-        gap={{base:3, md:10}}
-        align="center"
-        mx={{base:0, md:3}}
+        justifyContent={{base:"center", xl:"start"}}
+        gap={{base:5, md:10}}
+        align={"center  "}
+        mx={{base:3, md:10}}
       >
         {isSmall?data.map((item) =>(<Box>
           <CardHorizontal/>
-        </Box>)):null}
-        {data.map((item) => (
+        </Box>)):data.map((item) => (
           <div key={item._id}>
             <CardFront
               name={item.name}
@@ -69,11 +69,16 @@ export default function ApiDataPage({ data }) {
               price={item.price}
               image={item.image}
               addCount={() => addCount(item.name)}
+              
             />
           </div>
         ))}
+        {}
       </Box>
-      {/* Menggunakan data yang telah diambil */}
+      <Box mt={10}>
+
+      <LargeWithNewsletter/>
+      </Box>
     </div>
   );
 }
