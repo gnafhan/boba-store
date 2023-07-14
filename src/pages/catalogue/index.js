@@ -2,11 +2,18 @@ import axios from "axios";
 import { ColorModeSwitcher } from "../../../components/ColorModeSwitcher";
 import Fixed from "../../../components/Fixed";
 import CardFront from "../../../components/CardFront";
-import { Box, Text, useBreakpointValue } from "@chakra-ui/react";
+import {
+  Box,
+  Skeleton,
+  Spinner,
+  Text,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import { Cart } from "../../../components/Cart";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { CardHorizontal } from "../../../components/CardHorizontal";
 import LargeWithNewsletter from "../../../components/Footer";
+import { useEffect } from "react";
 
 export async function getServerSideProps() {
   try {
@@ -34,51 +41,93 @@ export async function getServerSideProps() {
   }
 }
 
+const CardSm = ({ data }) => {
+  return (
+    <>
+      {data.map((item) => (
+        <Box key={item._id}>
+          <CardHorizontal />
+        </Box>
+      ))}
+    </>
+  );
+};
+
+const CardMd = ({ data }) => {
+  return (
+    <>
+      {data.map((item) => (
+        <Box key={item._id}>
+          <CardFront
+            name={item.name}
+            desc={item.description}
+            price={item.price}
+            image={item.image}
+            addCount={() => addCount(item.name)}
+          />
+        </Box>
+      ))}
+    </>
+  );
+};
+
 export default function ApiDataPage({ data }) {
+  // Gunakan useBreakpointValue dari Chakra UI untuk mendapatkan nilai breakpoint saat ini
+  const breakpoint = useBreakpointValue({ base: "sm", sm: "sm", md: "md" });
+
+  // State untuk menentukan apakah saat ini merupakan breakpoint SM atau MD
+  const [isSM, setIsSM] = useState(false);
+  const [isLoading, setIsLoading] = useState(true)
+  useEffect(() => {
+    
+    if (data.length > 0) {
+      setTimeout(() => {
+        setIsLoading(false); // Set loading state to false when data is available
+      }, 1500)
+  
+    }
+  }, [data]);
+;
+  useEffect(() => {
+    // Set state isSM berdasarkan breakpoint saat ini
+    setIsSM(breakpoint === "sm");
+  }, [breakpoint]);
   const [cartItem, setCartItem] = useState([""]);
-  const isMedium = useBreakpointValue({ base: false, md: true });
-  const isSmall = useBreakpointValue({ base: true, sm: false });
 
   const addCount = (x) => {
     setCartItem([...cartItem, x]);
   };
-
   return (
     <div>
-      <Cart />
-      <Fixed />
-      <Text align="center">{cartItem.length}</Text>
-      <Box
-        p={2}
-        display={"flex"}
-        flexDirection={"row"}
-        flexWrap={"wrap"}
-        alignItems={"center"}
-        justifyContent={{base:"center", xl:"start"}}
-        gap={{base:5, md:10}}
-        align={"center  "}
-        mx={{base:3, md:10}}
-      >
-        {isSmall?data.map((item) =>(<Box>
-          <CardHorizontal/>
-        </Box>)):data.map((item) => (
-          <div key={item._id}>
-            <CardFront
-              name={item.name}
-              desc={item.description}
-              price={item.price}
-              image={item.image}
-              addCount={() => addCount(item.name)}
-              
-            />
-          </div>
-        ))}
-        {}
-      </Box>
-      <Box mt={10}>
+        {isLoading?(<><Spinner size="xl"/></>):(<>
+          <Cart />
+        <Fixed />
+        <Text align="center">{cartItem.length}</Text>
+        <Box
+          p={2}
+          display={"flex"}
+          flexDirection={"row"}
+          flexWrap={"wrap"}
+          alignItems={"center"}
+          justifyContent={{ base: "center", xl: "start" }}
+          gap={{ base: 5, md: 10 }}
+          align={"center  "}
+          mx={{ base: 3, md: 10 }}
+        >{isLoading ? ( // Display spinner when loading
+        <>
+          <Spinner size="xl"/>
+        </>
+      ) : isSM ? (
+        <CardSm data={data} />
+      ) : (
+        <CardMd data={data} />
+      )}
+        </Box>
+        <Box mt={10}>
+          <LargeWithNewsletter />
+        </Box>
+        </>)}
 
-      <LargeWithNewsletter/>
-      </Box>
     </div>
   );
 }
