@@ -113,7 +113,7 @@ export default function ApiDataPage({ data }) {
           flexDirection={"row"}
           flexWrap={"wrap"}
           alignItems={"center"}
-          justifyContent={{ base: "center", xl: "start" }}
+          justifyContent={{ base: "center", lg: "start" }}
           gap={{ base: 5, md: 10 }}
           align={"center  "}
           mx={{ base: 3, md: 10 }}
