@@ -94,6 +94,10 @@ export default function ApiDataPage({ data }) {
   const [isSM, setIsSM] = useState(false);
   const [isLoading, setIsLoading] = useState(true)
   const [cartItem, setCartItem] = useState([]);
+
+  const handleCart = (x) => {
+    setCartItem(x)
+  }
   useEffect(() => {
     
     if (data.length > 0) {
@@ -125,7 +129,7 @@ export default function ApiDataPage({ data }) {
           <ModalHeader>Create your account</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={3}>
-            <TableCart/>
+            <TableCart handleCart={handleCart} add={cartItem}/>
           </ModalBody>
           <ModalFooter>
             <Button colorScheme='blue' mr={3}>
