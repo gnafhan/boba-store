@@ -147,11 +147,11 @@ import { useState } from 'react';
               fontWeight={600}
               color={useColorModeValue('white', '#1A202C')}
               bg={useColorModeValue('#422AFB', '#B9A2FF')}
+              _hover={{bg: useColorModeValue('#3311db', '#9374ff')}}
+              _active={{bg: useColorModeValue('#2111a5', '#7551ff'),}}
               className={outfit.className}
 
               href={'#'}
-              _hover={{bg: useColorModeValue('#3311db', '#9374ff')}}
-              _active={{bg: useColorModeValue('#2111a5', '#7551ff'),}}
               >
                 
               Sign Up
@@ -369,6 +369,7 @@ import { useState } from 'react';
   const NAV_ITEMS = [
     {
       label: 'Home',
+      href: '/',
       
     },
     {
@@ -377,29 +378,29 @@ import { useState } from 'react';
         {
           label: 'All Boba',
           subLabel: 'All drink including tea, milk, and fruit',
-          href: '#',
+          href: '/catalogue',
         },
         {
           label: 'Tea Boba',
           subLabel: 'This type of boba drink uses the main ingredient of tea as its base, such as black tea or oolong tea.',
-          href: '#',
+          href: '/catalogue',
         },
         {
           label: 'Milk Boba',
           subLabel: "This type of milk boba drink has a milk base, either cow's milk, soy milk, or almond milk",
-          href: '#',
+          href: '/catalogue',
         },
         {
           label: 'Fruit Boba',
           subLabel: 'This type of fruit boba drink uses juice or fruit puree as its base.',
-          href: '#',
+          href: '/catalogue',
         }
       ],
-      href: '#',
+      href: '/catalogue',
     },
     {
       label: 'Contact',
-      href: '#',
+      href: '/contact',
     },
     
   ];
