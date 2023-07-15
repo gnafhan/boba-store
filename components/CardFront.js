@@ -72,6 +72,7 @@ export default function CardFront({name, desc, price, image, addCount}) {
             variant={"outline"}
             borderRadius={"full"}
             onClick={()=>{addCount()}}
+            cursor={"pointer"}
             _hover={{
               bg: useColorModeValue("#f3f0ff", "#2e3046"),
             }}

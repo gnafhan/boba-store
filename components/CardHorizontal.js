@@ -2,8 +2,8 @@ import { Image, Card, Stack, CardBody, Heading, Text, CardFooter, Button, useCol
 import { Quicksand, Outfit } from "next/font/google";
 
 const quicksand = Quicksand({ subsets: ["latin"] });
-const outfitBold = Outfit({ subsets: ["latin"], weight:"600" });
 const outfit = Outfit({ subsets: ["latin"] })
+const outfitBold = Outfit({ subsets: ["latin"], weight:"600" });
 
 export const CardHorizontal = ({name, desc, image, price, addCount}) =>{
     const localnumber = price
@@ -61,6 +61,7 @@ export const CardHorizontal = ({name, desc, image, price, addCount}) =>{
             variant={"outline"}
             borderRadius={"full"}
             onClick={()=>{addCount()}}
+            cursor={"pointer"}
             _hover={{
               bg: useColorModeValue("#f3f0ff", "#2e3046"),
             }}
