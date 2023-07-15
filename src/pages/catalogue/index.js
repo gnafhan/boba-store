@@ -5,7 +5,6 @@ import CardFront from "../../../components/CardFront";
 import {
   Box,
   Skeleton,
-  Spinner,
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
@@ -14,6 +13,7 @@ import { Suspense, useState } from "react";
 import { CardHorizontal } from "../../../components/CardHorizontal";
 import LargeWithNewsletter from "../../../components/Footer";
 import { useEffect } from "react";
+import Spinner from "../../../components/Loader";
 
 export async function getServerSideProps() {
   try {
@@ -103,7 +103,7 @@ export default function ApiDataPage({ data }) {
   };
   return (
     <div>
-        {isLoading?(<><Spinner size="xl"/></>):(<>
+        {isLoading?(<><Spinner/></>):(<>
           <Cart />
         <Fixed />
         <Text align="center">{cartItem.length}</Text>
