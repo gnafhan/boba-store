@@ -124,7 +124,7 @@ export default function ApiDataPage({ data }) {
         <ModalContent>
           <ModalHeader>Create your account</ModalHeader>
           <ModalCloseButton />
-          <ModalBody pb={6}>
+          <ModalBody pb={3}>
             <TableCart/>
           </ModalBody>
           <ModalFooter>
