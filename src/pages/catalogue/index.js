@@ -23,6 +23,7 @@ import { CardHorizontal } from "../../../components/CardHorizontal";
 import LargeWithNewsletter from "../../../components/Footer";
 import { useEffect } from "react";
 import Spinner from "../../../components/Loader";
+import TableCart from "../../../components/TableCart";
 
 export async function getServerSideProps() {
   try {
@@ -118,14 +119,14 @@ export default function ApiDataPage({ data }) {
 
           <Cart count={cartItem.length} />
         </Box>
-          <Modal closeOnOverlayClick={true} isOpen={isOpen} onClose={onClose}>
+          <Modal size={"xl"} closeOnOverlayClick={true} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Create your account</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
+            <TableCart/>
           </ModalBody>
-            {cartItem}
           <ModalFooter>
             <Button colorScheme='blue' mr={3}>
               Save
