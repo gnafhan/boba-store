@@ -301,7 +301,7 @@ import { useState } from 'react';
               className={outfit.className}
 
               href={'#'}
-              _hover={{bg: useColorModeValue('#3311db', '#9374ff')}}
+              _hover={{bg: useColorModeValue('##422AFB', '#9374ff')}}
               _active={{bg: useColorModeValue('#2111a5', '#7551ff'),}}
               > 
               Sign Up
