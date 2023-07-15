@@ -4,9 +4,18 @@ import Fixed from "../../../components/Fixed";
 import CardFront from "../../../components/CardFront";
 import {
   Box,
+  Button,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Skeleton,
   Text,
   useBreakpointValue,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { Cart } from "../../../components/Cart";
 import { Suspense, useState } from "react";
@@ -78,10 +87,12 @@ const CardMd = ({ data, addCount }) => {
 export default function ApiDataPage({ data }) {
   // Gunakan useBreakpointValue dari Chakra UI untuk mendapatkan nilai breakpoint saat ini
   const breakpoint = useBreakpointValue({ base: "sm", sm: "sm", md: "md" });
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   // State untuk menentukan apakah saat ini merupakan breakpoint SM atau MD
   const [isSM, setIsSM] = useState(false);
   const [isLoading, setIsLoading] = useState(true)
+  const [cartItem, setCartItem] = useState([]);
   useEffect(() => {
     
     if (data.length > 0) {
@@ -96,7 +107,6 @@ export default function ApiDataPage({ data }) {
     // Set state isSM berdasarkan breakpoint saat ini
     setIsSM(breakpoint === "sm");
   }, [breakpoint]);
-  const [cartItem, setCartItem] = useState([""]);
 
   const addCount = (x) => {
     setCartItem([...cartItem, x]);
@@ -104,11 +114,30 @@ export default function ApiDataPage({ data }) {
   return (
     <div>
         {isLoading?(<><Spinner/></>):(<>
-          <Cart />
+        <Box  onClick={onOpen}>
+
+          <Cart count={cartItem.length} />
+        </Box>
+          <Modal closeOnOverlayClick={true} isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Create your account</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pb={6}>
+          </ModalBody>
+            {cartItem}
+          <ModalFooter>
+            <Button colorScheme='blue' mr={3}>
+              Save
+            </Button>
+            <Button onClick={onClose}>Cancel</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
         <Fixed />
-        <Text align="center">{cartItem.length}</Text>
         <Box
-          p={2}
+          p={3}
+          mt={2}
           display={"flex"}
           flexDirection={"row"}
           flexWrap={"wrap"}

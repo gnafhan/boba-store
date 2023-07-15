@@ -6,8 +6,13 @@ import {
   CardBody,
   Text,
   Box,
+  Center,
 } from "@chakra-ui/react";
 import { FaShoppingCart } from "react-icons/fa";
+import { Quicksand, Outfit } from "next/font/google";
+
+const quicksand = Quicksand({ subsets: ["latin"] });
+const outfit = Outfit({ subsets: ["latin"] })
 
 export const Cart = (props) => {
   return (
@@ -30,6 +35,22 @@ export const Cart = (props) => {
 
         icon={<FaShoppingCart />}
       />
+      <Box
+      display={""}
+      position={"fixed"}
+      right="6"
+      bottom="10"
+      bg="crimson"
+      //make it square
+      w="0.9rem"
+      h="0.9rem"
+      rounded={"full"}
+      
+      >
+      <Center>
+        <Text className={outfit.className} fontSize={"12px"} mt={"-2px"} color="white">{props.count}</Text>
+        </Center> 
+        </Box>
 
           
     </Box>
