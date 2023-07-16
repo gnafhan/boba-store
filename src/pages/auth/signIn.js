@@ -15,23 +15,29 @@ import {
 import { getProviders, signIn } from "next-auth/react";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../api/auth/[...nextauth]";
+import { useState } from "react";
 
 export default function SimpleCard({ providers }) {
-    console.log(providers);
-  return (
-    <Flex
-      minH={"100vh"}
-      align={"center"}
-      justify={"center"}
-      bg={useColorModeValue("gray.50", "gray.800")}
-    >
-      <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
-        <Stack align={"center"}>
-          <Heading fontSize={"4xl"}>Sign in to your account</Heading>
-          <Text fontSize={"lg"} color={"gray.600"}>
-            to enjoy all of our cool <Link color={"blue.400"}>features</Link> ✌️
-          </Text>
-        </Stack>
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+  
+    const handleSignIn = (e) => {
+      e.preventDefault();
+      signIn("credentials", {
+        username: email,
+        password: password,
+        redirect: "/test", // Set to true if you want to redirect after successful login
+      });
+    };
+  
+    return (
+      <Flex
+        minH={"100vh"}
+        align={"center"}
+        justify={"center"}
+        bg={useColorModeValue("gray.50", "gray.800")}
+      >
+        {/* ... Your existing JSX ... */}
         <Box
           rounded={"lg"}
           bg={useColorModeValue("white", "gray.700")}
@@ -41,11 +47,19 @@ export default function SimpleCard({ providers }) {
           <Stack spacing={4}>
             <FormControl id="email">
               <FormLabel>Email address</FormLabel>
-              <Input type="email" />
+              <Input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </FormControl>
             <FormControl id="password">
               <FormLabel>Password</FormLabel>
-              <Input type="password" />
+              <Input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </FormControl>
             <Stack spacing={10}>
               <Stack
@@ -62,22 +76,23 @@ export default function SimpleCard({ providers }) {
                 _hover={{
                   bg: "blue.500",
                 }}
+                onClick={handleSignIn}
               >
                 Sign in
               </Button>
+              {/* Providers */}
               {Object.values(providers).map((provider) => (
-        <div key={provider.name}>
-          <button onClick={() => signIn(provider.id)}>
-            Sign in with {provider.name}
-          </button>
-        </div>
-      ))}
+                <div key={provider.name}>
+                  <button onClick={() => signIn(provider.id)}>
+                    Sign in with {provider.name}
+                  </button>
+                </div>
+              ))}
             </Stack>
           </Stack>
         </Box>
-      </Stack>
-    </Flex>
-  );
+      </Flex>
+    );
 }
 
 export async function getServerSideProps(context) {
