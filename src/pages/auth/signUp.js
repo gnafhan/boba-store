@@ -18,6 +18,8 @@ import {
   import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
   import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../api/auth/[...nextauth]';
   
   export default function SignupCard() {
     const [showPassword, setShowPassword] = useState(false);
