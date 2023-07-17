@@ -16,6 +16,8 @@ import {
   } from '@chakra-ui/react';
   import { useState } from 'react';
   import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+  import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/router';
   
   export default function SignupCard() {
     const [showPassword, setShowPassword] = useState(false);
@@ -23,9 +25,9 @@ import {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [role, setRole] = useState("");
+    const router = useRouter()
 
     const handleSubmit = async (e) => {
-      console.log("a", username,email,password)
       e.preventDefault();
       const response = await fetch("/api/auth/register", {
         method: "POST",
@@ -36,7 +38,23 @@ import {
       });
   
       const data = await response.json();
-      console.log(data); // Handle the response (registration success or failure)
+      
+      if(await data.message === "User registered successfully."){
+        const willLogin = await signIn("credentials", {
+          email,
+          password,
+          redirect: false, // We will handle the redirect manually after successful login
+        });
+
+        if (willLogin.error) {
+          // If signIn returned an error, display the error message
+          console.log(willLogin.error)
+        }
+        else if (willLogin.ok) {
+          router.push("/test")
+          
+        }
+      }
     };
   
     return (
@@ -121,3 +139,21 @@ import {
       </Flex>
     );
   }
+
+  
+export async function getServerSideProps(context) {
+  const session = await getServerSession(context.req, context.res, authOptions);
+
+  // If the user is already logged in, redirect.
+  // Note: Make sure not to redirect to the same page
+  // To avoid an infinite loop!
+  if (session) {
+    return { redirect: { destination: "/" } };
+  }
+
+  const providers = await getProviders();
+
+  return {
+    props: { providers: providers ?? [] },
+  };
+}
