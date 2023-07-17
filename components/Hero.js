@@ -9,11 +9,12 @@ import {
     IconProps,
     useColorModeValue,
     Image,
+    Box,
   } from '@chakra-ui/react';
 
   import { Outfit } from 'next/font/google';
   import { Quicksand } from 'next/font/google';
-  import asset1 from '../public/asset1.png'
+import Confetti from './Confetti';
   
   const outfit = Outfit({subsets:['latin']})
   const quicksand = Quicksand({subsets:['latin']})
@@ -70,6 +71,7 @@ import {
               height={{ sm: '24rem', lg: '28rem' }}
               mt={{ base: 12, sm: 16 }}
             /> */}
+
             <Image
           width="100%"
           viewBox="0 0 702 448"
@@ -78,6 +80,7 @@ import {
           objectFit={'contain'}
           xmlns="http://www.w3.org/2000/svg"
            src={'asset1.png'} />
+
             
           </Flex>
         </Stack>

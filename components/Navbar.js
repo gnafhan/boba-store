@@ -130,7 +130,7 @@ import { useState } from 'react';
               display={{ base: 'none', md: 'inline-flex' }}
 
               variant={'outline'}
-              href={'#'}
+              href={'/auth/signIn'}
               _hover={{
                 bg: useColorModeValue('#f3f0ff', '#2e3046')
               }}
@@ -151,7 +151,7 @@ import { useState } from 'react';
               _active={{bg: useColorModeValue('#2111a5', '#7551ff'),}}
               className={outfit.className}
 
-              href={'#'}
+              href={'/auth/signUp'}
               >
                 
               Sign Up
@@ -281,7 +281,7 @@ import { useState } from 'react';
               className={quicksand.className}
               colorScheme={useColorModeValue('#422AFB', '#B9A2FF')}
               variant={'outline'}
-              href={'#'}
+              href={'/auth/signIn'}
               _hover={{
                 bg: useColorModeValue('#f3f0ff', '#2e3046')
               }}
@@ -300,7 +300,7 @@ import { useState } from 'react';
               bg={useColorModeValue('#422AFB', '#B9A2FF')}
               className={outfit.className}
 
-              href={'#'}
+              href={'/auth/signUp'}
               _hover={{bg: useColorModeValue('##422AFB', '#9374ff')}}
               _active={{bg: useColorModeValue('#2111a5', '#7551ff'),}}
               > 

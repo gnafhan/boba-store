@@ -16,7 +16,7 @@ import {
   } from '@chakra-ui/react';
   import { useState } from 'react';
   import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-  import { signIn } from 'next-auth/react';
+  import { getProviders, signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]';
