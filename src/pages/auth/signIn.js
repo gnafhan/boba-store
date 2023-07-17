@@ -16,18 +16,43 @@ import { getProviders, signIn } from "next-auth/react";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 export default function SimpleCard({ providers }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+    const router = useRouter();
   
-    const handleSignIn = (e) => {
+  
+    const handleSignIn = async (e) => {
       e.preventDefault();
-      signIn("credentials", {
-        username: email,
-        password: password,
-        redirect: "/test", // Set to true if you want to redirect after successful login
+
+    // Reset previous error message
+    setError("");
+    setLoading(true);
+
+    try {
+      // Call the signIn function from next-auth
+      const response = await signIn("credentials", {
+        email,
+        password,
+        redirect: false, // We will handle the redirect manually after successful login
       });
+
+      if (response.error) {
+        // If signIn returned an error, display the error message
+        setError(response.error);
+      } else if (response.ok) {
+        // If signIn was successful, redirect to the desired page
+        router.push("/test"); // Change "/dashboard" to your desired page
+      }
+    } catch (err) {
+      setError("An error occurred. Please try again.");
+    } finally {
+      setLoading(false);
+    }
     };
   
     return (
@@ -76,10 +101,16 @@ export default function SimpleCard({ providers }) {
                 _hover={{
                   bg: "blue.500",
                 }}
+                isLoading={loading}
                 onClick={handleSignIn}
               >
                 Sign in
               </Button>
+              {error && (
+            <Text color="red.500" fontSize="sm">
+              {error}
+            </Text>
+          )}
               {/* Providers */}
               {Object.values(providers).map((provider) => (
                 <div key={provider.name}>

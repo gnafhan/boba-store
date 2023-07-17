@@ -19,6 +19,25 @@ import {
   
   export default function SignupCard() {
     const [showPassword, setShowPassword] = useState(false);
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [role, setRole] = useState("");
+
+    const handleSubmit = async (e) => {
+      console.log("a", username,email,password)
+      e.preventDefault();
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        body: JSON.stringify({ username, email, password}),
+        headers: {  
+          "Content-Type": "application/json",
+        },
+      });
+  
+      const data = await response.json();
+      console.log(data); // Handle the response (registration success or failure)
+    };
   
     return (
       <Flex
@@ -45,26 +64,27 @@ import {
                 <Box>
                   <FormControl id="firstName" isRequired>
                     <FormLabel>First Name</FormLabel>
-                    <Input type="text" />
+                    <Input  type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
                   </FormControl>
                 </Box>
-                <Box>
+                {/* <Box>
                   <FormControl id="lastName">
                     <FormLabel>Last Name</FormLabel>
                     <Input type="text" />
                   </FormControl>
-                </Box>
+                </Box> */}
               </HStack>
-              <FormControl id="email" isRequired>
+              <FormControl type="email" value={email} onChange={(e) => setEmail(e.target.value)} isRequired>
                 <FormLabel>Email address</FormLabel>
                 <Input type="email" />
               </FormControl>
-              <FormControl id="password" isRequired>
+              <FormControl type="password" value={password} onChange={(e) => setPassword(e.target.value)} isRequired>
                 <FormLabel>Password</FormLabel>
                 <InputGroup>
                   <Input type={showPassword ? 'text' : 'password'} />
                   <InputRightElement h={'full'}>
                     <Button
+                    
                       variant={'ghost'}
                       onClick={() =>
                         setShowPassword((showPassword) => !showPassword)
@@ -82,7 +102,11 @@ import {
                   color={'white'}
                   _hover={{
                     bg: 'blue.500',
-                  }}>
+                  }}
+                  type="submit"
+                  onClick={handleSubmit}
+                  >
+
                   Sign up
                 </Button>
               </Stack>
