@@ -25,11 +25,12 @@ import LargeWithNewsletter from "../../../components/Footer";
 import { useEffect } from "react";
 import Spinner from "../../../components/Loader";
 import TableCart from "../../../components/TableCart";
+import AdminAuth from "../../../utils/AdminAuth";
 
 export async function getServerSideProps() {
   try {
     // Mengambil data dari API menggunakan axios atau metode lainnya
-    const response = await axios.get("http://localhost:3000/api/get");
+    const response = await axios.get("http://localhost:3000/api/get", {headers:{Authorization:process.env.BEARER_AUTH}});
 
     // Mendapatkan data dari response
     const data = response.data;
@@ -88,7 +89,7 @@ const CardMd = ({ data, addCount }) => {
   );
 };
 
-export default function ApiDataPage({ data }) {
+const ApiDataPage =({ data })=> {
   // Gunakan useBreakpointValue dari Chakra UI untuk mendapatkan nilai breakpoint saat ini
   const breakpoint = useBreakpointValue({ base: "sm", sm: "sm", md: "md" });
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -185,3 +186,6 @@ export default function ApiDataPage({ data }) {
     </div>
   );
 }
+
+
+export default AdminAuth(ApiDataPage)

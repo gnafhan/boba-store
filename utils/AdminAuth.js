@@ -15,7 +15,7 @@ const AdminAuth = (WrappedComponent) => {
 
     // Redirect to login page if the user is not logged in.
     if (!session) {
-      router.replace('/login'); // Redirect to your login page.
+      router.replace('/auth/signIn'); // Redirect to your login page.
       return null;
     }
 
