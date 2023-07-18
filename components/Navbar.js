@@ -34,7 +34,7 @@ import {
   import { Quicksand } from 'next/font/google';
   import { Sigmar } from 'next/font/google';
 import { useState } from 'react';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
   const inter = Inter({ subsets: ['latin'] })
   const outfit = Outfit({subsets:['latin']})
   const quicksand = Quicksand({subsets:['latin']})
@@ -110,7 +110,7 @@ import { useSession } from 'next-auth/react';
                 <MenuItem>Link 1</MenuItem>
                 <MenuItem>Link 2</MenuItem>
                 <MenuDivider />
-                <MenuItem>Link 3</MenuItem>
+                <MenuItem onClick={() => signOut()}>Log Out</MenuItem>
               </MenuList>
             </Menu>
           </Flex>
