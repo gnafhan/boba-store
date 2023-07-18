@@ -25,7 +25,7 @@ import LargeWithNewsletter from "../../../components/Footer";
 import { useEffect } from "react";
 import Spinner from "../../../components/Loader";
 import TableCart from "../../../components/TableCart";
-import AdminAuth from "../../../utils/AdminAuth";
+import UserAuth from "../../../utils/UserAuth";
 
 export async function getServerSideProps() {
   try {
@@ -188,4 +188,4 @@ const ApiDataPage =({ data })=> {
 }
 
 
-export default AdminAuth(ApiDataPage)
+export default UserAuth(ApiDataPage)
