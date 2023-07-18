@@ -77,8 +77,6 @@ const  AdminIndex= ({ data })=> {
   const [showToast, setShowToast] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedData, setSelectedData] = useState(null);
-  const session =  useSession()
-   console.log("LLLLL: ",session)
 
 
   useEffect(() => {

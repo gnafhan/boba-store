@@ -1,15 +1,18 @@
 // /middleware/isAdmin.js
 // import { getSession } from 'next-auth/react';
 
-export default async function isAdmin(req, res, next) {
+export default async function isAdmin(req, res, next, what) {
   try {
-    if (req.headers.authorization != process.env.BEARER_AUTH) {
-      return res.status(403).json({ error: "forbidden" });
-    }
-    const userAgent = req.headers["user-agent"];
+    let userAgent = req.headers["user-agent"];
     const isBrowserRequest = userAgent && userAgent.includes("axios");
     if (!isBrowserRequest) {
-      return res.status(403).json({ error: "Forbiddena" });
+    if(what == "post" ){
+        return next()
+    }
+      return res.status(403).json({ error: "forbidenn" });
+    }
+    if (req.headers.authorization != process.env.BEARER_AUTH) {
+      return res.status(404).json({ error: "forbidden wrong bearer" });
     }
     return next();
   } catch (error) {

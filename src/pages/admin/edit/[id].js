@@ -6,16 +6,23 @@ import { useEffect, useState } from 'react';
 
 export async function getServerSideProps() {
     try {
+
       // Mengambil data dari API menggunakan axios atau metode lainnya
-      const response = await axios.get('http://localhost:3000/api/get');
+      const response = await axios.get('http://localhost:3000/api/get', {headers: {
+        Authorization: process.env.BEARER_AUTH,
+      
+      },});
       
       // Mendapatkan data dari response
       const data = response.data;
+      const bearer= process.env.BEARER_AUTH
       
       // Mengembalikan data sebagai props
       return {
         props: {
           data,
+          bearer
+
         },
       };
     } catch (error) {
@@ -30,7 +37,7 @@ export async function getServerSideProps() {
     }
   }
 
-export default function AdminEdit ({data}){
+export default function AdminEdit ({data, bearer}){
     const router = useRouter();
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
@@ -38,18 +45,12 @@ export default function AdminEdit ({data}){
     const [image, setImage] = useState('')
     const toast = useToast()
     const { id } = router.query;
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('name: ', name)
-        console.log('description: ', description)
-        console.log('price: ', price)
-        console.log('image: ', image)
-
         try {
-            
-            const response = await axios.post('http://localhost:3000/api/edit', { name: name, description: description, price: price, image:image, id:id});
-            console.log(response.data);
+            const response = await axios.post('http://localhost:3000/api/edit',{ name: name, description: description, price: price, image:image, id:id}, {headers:{
+              Authorization:bearer,
+            }});
 
           
             router.push({pathname: '/admin', query: {edit: 'success'} })
