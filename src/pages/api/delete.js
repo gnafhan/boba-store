@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     } else {
       return res.status(403).json({ error: 'forbidden' });
     }
-    })
+    }, "post")
   } catch (error) {
     res.json(error)
   }

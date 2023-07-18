@@ -52,11 +52,13 @@ export async function getServerSideProps() {
 
     // Mendapatkan data dari response
     const data = response.data;
+    const bearer = process.env.BEARER_AUTH;''
 
     // Mengembalikan data sebagai props
     return {
       props: {
         data,
+        bearer
       },
     };
   } catch (error) {
@@ -71,7 +73,7 @@ export async function getServerSideProps() {
   }
 }
 
-const  AdminIndex= ({ data })=> {
+const  AdminIndex= ({ data, bearer })=> {
   const toast = useToast();
   const router = useRouter();
   const [showToast, setShowToast] = useState(false);
@@ -128,7 +130,7 @@ const  AdminIndex= ({ data })=> {
     try {
       const response = await axios.post(`http://localhost:3000/api/delete`, {
         id: selectedData._id,
-      });
+      }, {headers:{Authorization:bearer}});
       onClose();
       router.push({ pathname: "/admin", query: { deleted: "success" } });
       // Lakukan apa yang perlu dilakukan setelah sukses mengirim data
