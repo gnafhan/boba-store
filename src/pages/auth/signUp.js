@@ -21,7 +21,7 @@ import { useRouter } from 'next/router';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]';
   
-  export default function SignupCard() {
+  export default function SignupCard({bearer}) {
     const [showPassword, setShowPassword] = useState(false);
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -36,6 +36,7 @@ import { authOptions } from '../api/auth/[...nextauth]';
         body: JSON.stringify({ username, email, password}),
         headers: {  
           "Content-Type": "application/json",
+          Authorization:bearer
         },
       });
   
@@ -149,6 +150,9 @@ export async function getServerSideProps(context) {
   // If the user is already logged in, redirect.
   // Note: Make sure not to redirect to the same page
   // To avoid an infinite loop!
+
+  const bearer = process.env.BEARER_AUTH;
+
   if (session) {
     return { redirect: { destination: "/" } };
   }
@@ -156,6 +160,6 @@ export async function getServerSideProps(context) {
   const providers = await getProviders();
 
   return {
-    props: { providers: providers ?? [] },
+    props: { providers: providers ?? [], bearer },
   };
 }

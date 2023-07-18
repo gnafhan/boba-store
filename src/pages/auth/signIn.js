@@ -12,18 +12,24 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { getProviders, signIn } from "next-auth/react";
+import { getProviders, signIn, useSession } from "next-auth/react";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
 export default function SimpleCard({ providers }) {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("");
-    const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const router = useRouter();
+
+  const getSession = ()=>{
+    const {data:session} = useSession()
+    return session
+
+  }
   
   
     const handleSignIn = async (e) => {
@@ -45,10 +51,13 @@ export default function SimpleCard({ providers }) {
         // If signIn returned an error, display the error message
         setError(response.error);
       } else if (response.ok) {
-        // If signIn was successful, redirect to the desired page
-        router.push("/test"); // Change "/dashboard" to your desired page
+
+        // if admin redirect to /admin
+     router.push('/')
+
       }
     } catch (err) {
+      console.error(err)
       setError("An error occurred. Please try again.");
     } finally {
       setLoading(false);

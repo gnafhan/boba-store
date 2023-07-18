@@ -46,7 +46,6 @@ export const authOptions = {
         const isValid = await bcrypt.compare(password, user.password)
         if (!isValid) throw Error("Couldn't find password")
 
-        console.log(user)
 
         // You can also Reject this callback with an Error or with a URL:
         // throw new Error('error message') // Redirect to error page
