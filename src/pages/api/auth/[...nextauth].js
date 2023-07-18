@@ -82,7 +82,13 @@ export const authOptions = {
         session.user.username=token.username
       }
       return session
-    }
+    },
+    // async signIn(user, account, profile) {
+    //   if (account.provider === 'google') {
+    //     user.role = 'admin'; // Menambahkan properti role ke objek user
+    //   }
+    //   return true;
+    // },
   },
 
   // A database is optional, but required to persist accounts in a database

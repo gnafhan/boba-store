@@ -4,7 +4,7 @@
 export default async function isAdmin(req, res, next, what) {
   try {
       if (req.headers.authorization != process.env.BEARER_AUTH) {
-        return res.status(404).json({ error: "forbidden wrong bearer" });
+        return res.status(404).json({ error: "forbidden" });
       }
     let userAgent = req.headers["user-agent"];
     const isBrowserRequest = userAgent && userAgent.includes("axios");
