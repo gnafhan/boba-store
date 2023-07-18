@@ -34,15 +34,17 @@ import {
   import { Quicksand } from 'next/font/google';
   import { Sigmar } from 'next/font/google';
 import { useState } from 'react';
+import { useSession } from 'next-auth/react';
   const inter = Inter({ subsets: ['latin'] })
   const outfit = Outfit({subsets:['latin']})
   const quicksand = Quicksand({subsets:['latin']})
   const outfitBold = Outfit({subsets:['latin'], weight:'700'})
-
   const sigmar = Sigmar({subsets: ['latin'], weight: '400'});
-  let isLogin = false
+
+
   export default function WithSubnavigation() {
     const { isOpen, onToggle } = useDisclosure();
+    const {status} = useSession();
   
     return (
       <Box>
@@ -83,7 +85,7 @@ import { useState } from 'react';
             </Flex>
           </Flex>
           
-          {isLogin ? (<div>
+          {status == "authenticated" ? (<div>
             <Stack
             flex={{ base: 1, md: 0 }}
             justify={'flex-end'}
@@ -114,7 +116,7 @@ import { useState } from 'react';
           </Flex>
             </Stack>
             
-          </div>):(<div><Stack
+          </div>):status =="loading"?null:(<div><Stack
             flex={{ base: 1, md: 0 }}
             justify={'flex-end'}
             direction={'row'}
@@ -252,6 +254,7 @@ import { useState } from 'react';
   };
   
   const MobileNav = () => {
+    const {status }= useSession()
     return (
       <Stack
         bg={useColorModeValue('white', 'gray.800')}
@@ -261,7 +264,7 @@ import { useState } from 'react';
           <MobileNavItem key={navItem.label} {...navItem} />
         ))}
         <div>
-        {isLogin?null: (        <Stack spacing={4}>
+        {status =='authenticated' ?null: (        <Stack spacing={4}>
         <Flex
           py={2}
           as={Link}

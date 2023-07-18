@@ -71,7 +71,7 @@ import Confetti from './Confetti';
               height={{ sm: '24rem', lg: '28rem' }}
               mt={{ base: 12, sm: 16 }}
             /> */}
-
+            <Confetti/>
             <Image
           width="100%"
           viewBox="0 0 702 448"
