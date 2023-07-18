@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import { Box, Button, ChakraProvider, FormControl, FormHelperText, FormLabel, Heading, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, useToast, Text, Link } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+import AdminAuth from '../../../../utils/AdminAuth';
 
 
 export async function getServerSideProps() {
@@ -37,7 +38,7 @@ export async function getServerSideProps() {
     }
   }
 
-export default function AdminEdit ({data, bearer}){
+const  AdminEdit =({data, bearer})=>{
     const router = useRouter();
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
@@ -133,3 +134,5 @@ export default function AdminEdit ({data, bearer}){
         </>
     )
 }
+
+export default AdminAuth(AdminEdit)

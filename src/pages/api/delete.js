@@ -1,10 +1,12 @@
 import clientPromise from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
+import isAdmin from "../../../middleware/isAdmin";
 
 //create new collection
 export default async function handler(req, res) {
   try {
-    if (req.method === "POST") {
+    await isAdmin(req, res, async () => {
+      if (req.method === "POST") {
         const { id } = req.body
           const client = await clientPromise
           const db = client.db('boba')
@@ -16,8 +18,9 @@ export default async function handler(req, res) {
           res.status(200).send(result)
         
     } else {
-        res.status(400).send("Method not allowed")
+      return res.status(403).json({ error: 'forbidden' });
     }
+    })
   } catch (error) {
     res.json(error)
   }
