@@ -29,11 +29,26 @@ import {
 import { useRouter } from "next/router";
 import axios from "axios";
 import { AddIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import AdminAuth from './../../../utils/AdminAuth';
+import { getSession, useSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
 
 export async function getServerSideProps() {
   try {
     // Mengambil data dari API menggunakan axios atau metode lainnya
-    const response = await axios.get("http://localhost:3000/api/get");
+    const response = await axios.get("http://localhost:3000/api/get"
+
+    //add current session
+    , {
+      headers: {
+        Authorization: process.env.BEARER_AUTH,
+      
+      },
+      withCredentials:true
+
+    }
+
+    );
 
     // Mendapatkan data dari response
     const data = response.data;
@@ -56,12 +71,15 @@ export async function getServerSideProps() {
   }
 }
 
-export default function AdminIndex({ data }) {
+const  AdminIndex= ({ data })=> {
   const toast = useToast();
   const router = useRouter();
   const [showToast, setShowToast] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedData, setSelectedData] = useState(null);
+  const session =  useSession()
+   console.log("LLLLL: ",session)
+
 
   useEffect(() => {
     const { create, deleted, edit } = router.query;
@@ -113,7 +131,6 @@ export default function AdminIndex({ data }) {
       const response = await axios.post(`http://localhost:3000/api/delete`, {
         id: selectedData._id,
       });
-      console.log(response);
       onClose();
       router.push({ pathname: "/admin", query: { deleted: "success" } });
       // Lakukan apa yang perlu dilakukan setelah sukses mengirim data
@@ -209,3 +226,6 @@ export default function AdminIndex({ data }) {
     </Box>
   );
 }
+
+
+export default AdminAuth(AdminIndex);
