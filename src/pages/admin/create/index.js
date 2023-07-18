@@ -3,7 +3,34 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 
-export default function Home() {
+export async function getServerSideProps() {
+  try {
+
+    // Mengambil data dari API menggunakan axios atau metode lainnya
+    
+    // Mendapatkan data dari response
+    const data = null
+    const bearer= process.env.BEARER_AUTH
+    
+    // Mengembalikan data sebagai props
+    return {
+      props: {
+        bearer
+
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    
+    // Mengembalikan props kosong jika terjadi kesalahan
+    return {
+      props: {
+        data: [],
+      },
+    };
+  }
+}
+export default function Home({bearer}) {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState(0)
@@ -14,14 +41,8 @@ export default function Home() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('name: ', name)
-        console.log('description: ', description)
-        console.log('price: ', price)
-        console.log('image: ', image)
-
         try {
-            const response = await axios.post('http://localhost:3000/api/create', { name: name, description: description, price: price, image:image});
-            console.log(response.data);
+            const response = await axios.post('http://localhost:3000/api/create', { name: name, description: description, price: price, image:image}, {headers:{Authorization:bearer}});
 
           
             router.push({pathname: '/admin', query: {create: 'success'} })
