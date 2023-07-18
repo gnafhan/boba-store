@@ -2,6 +2,7 @@ import { Box, Button, ChakraProvider, FormControl, FormHelperText, FormLabel, He
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
+import AdminAuth from '../../../../utils/AdminAuth';
 
 export async function getServerSideProps() {
   try {
@@ -30,7 +31,7 @@ export async function getServerSideProps() {
     };
   }
 }
-export default function Home({bearer}) {
+const Home=({bearer})=> {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState(0)
@@ -107,3 +108,5 @@ export default function Home({bearer}) {
     </ChakraProvider>
   );
 }
+
+export default AdminAuth(Home)
