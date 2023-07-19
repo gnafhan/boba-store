@@ -385,28 +385,28 @@ import { MdShoppingCartCheckout } from 'react-icons/md';
     },
     {
       label: 'Catalogue',
-      children: [
-        {
-          label: 'All Boba',
-          subLabel: 'All drink including tea, milk, and fruit',
-          href: '/catalogue',
-        },
-        {
-          label: 'Tea Boba',
-          subLabel: 'This type of boba drink uses the main ingredient of tea as its base, such as black tea or oolong tea.',
-          href: '/catalogue',
-        },
-        {
-          label: 'Milk Boba',
-          subLabel: "This type of milk boba drink has a milk base, either cow's milk, soy milk, or almond milk",
-          href: '/catalogue',
-        },
-        {
-          label: 'Fruit Boba',
-          subLabel: 'This type of fruit boba drink uses juice or fruit puree as its base.',
-          href: '/catalogue',
-        }
-      ],
+      // children: [
+      //   {
+      //     label: 'All Boba',
+      //     subLabel: 'All drink including tea, milk, and fruit',
+      //     href: '/catalogue',
+      //   },
+      //   {
+      //     label: 'Tea Boba',
+      //     subLabel: 'This type of boba drink uses the main ingredient of tea as its base, such as black tea or oolong tea.',
+      //     href: '/catalogue',
+      //   },
+      //   {
+      //     label: 'Milk Boba',
+      //     subLabel: "This type of milk boba drink has a milk base, either cow's milk, soy milk, or almond milk",
+      //     href: '/catalogue',
+      //   },
+      //   {
+      //     label: 'Fruit Boba',
+      //     subLabel: 'This type of fruit boba drink uses juice or fruit puree as its base.',
+      //     href: '/catalogue',
+      //   }
+      // ],
       href: '/catalogue',
     },
     {
