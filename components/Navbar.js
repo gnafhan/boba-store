@@ -35,6 +35,9 @@ import {
   import { Sigmar } from 'next/font/google';
 import { useState } from 'react';
 import { signOut, useSession } from 'next-auth/react';
+import { FaShoppingCart, FaUserEdit } from 'react-icons/fa';
+import { BsGear } from 'react-icons/bs';
+import { BiLogOut } from 'react-icons/bi';
   const inter = Inter({ subsets: ['latin'] })
   const outfit = Outfit({subsets:['latin']})
   const quicksand = Quicksand({subsets:['latin']})
@@ -108,10 +111,11 @@ import { signOut, useSession } from 'next-auth/react';
               </MenuButton>
               <MenuList >
                 <Box align="center" alignItems="center" justifyContent={"center"} justifyItems={"center"}>
-                <MenuItem align="center" alignItems="center" justifyContent={"center"} justifyItems={"center"}>Link 1</MenuItem>
-                <MenuItem align="center" alignItems="center" justifyContent={"center"} justifyItems={"center"}>Link 2</MenuItem>
+                <MenuItem align="center" alignItems="center" justifyContent={"center"} justifyItems={"center"}><Box mr={2}><FaShoppingCart/></Box>  Cart</MenuItem>
+                <MenuItem align="center" alignItems="center" justifyContent={"center"} justifyItems={"center"}><Box mr={2}><FaUserEdit/></Box>  Edit profile</MenuItem>
+                <MenuItem align="center" alignItems="center" justifyContent={"center"} justifyItems={"center"}><Box mr={2}><BsGear/></Box>  Settings</MenuItem>
                 <MenuDivider />
-                <MenuItem align="center" alignItems="center" justifyContent={"center"} justifyItems={"center"} onClick={() => signOut()}>Log Out</MenuItem>
+                <MenuItem align="center" alignItems="center" justifyContent={"center"} justifyItems={"center"} onClick={() => signOut()}><Box mr={2}><BiLogOut/></Box>Log Out</MenuItem>
                                   
                 </Box>
               </MenuList>
