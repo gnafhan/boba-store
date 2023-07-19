@@ -92,7 +92,7 @@ import { signOut, useSession } from 'next-auth/react';
             direction={'row'}
             spacing={6}>
                <Flex alignItems={'center'}>
-            <Menu>
+            <Menu offset={[10, 0]}>
               <MenuButton
                 as={Button}
                 rounded={'full'}
@@ -106,11 +106,14 @@ import { signOut, useSession } from 'next-auth/react';
                   }
                 />
               </MenuButton>
-              <MenuList width={"200px"}>
-                <MenuItem>Link 1</MenuItem>
-                <MenuItem>Link 2</MenuItem>
+              <MenuList >
+                <Box align="center" alignItems="center" justifyContent={"center"} justifyItems={"center"}>
+                <MenuItem align="center" alignItems="center" justifyContent={"center"} justifyItems={"center"}>Link 1</MenuItem>
+                <MenuItem align="center" alignItems="center" justifyContent={"center"} justifyItems={"center"}>Link 2</MenuItem>
                 <MenuDivider />
-                <MenuItem onClick={() => signOut()}>Log Out</MenuItem>
+                <MenuItem align="center" alignItems="center" justifyContent={"center"} justifyItems={"center"} onClick={() => signOut()}>Log Out</MenuItem>
+                                  
+                </Box>
               </MenuList>
             </Menu>
           </Flex>
