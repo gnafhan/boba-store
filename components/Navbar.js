@@ -35,9 +35,10 @@ import {
   import { Sigmar } from 'next/font/google';
 import { useState } from 'react';
 import { signOut, useSession } from 'next-auth/react';
-import { FaShoppingCart, FaUserEdit } from 'react-icons/fa';
+import { FaShoppingCart, FaUser, FaUserEdit } from 'react-icons/fa';
 import { BsGear } from 'react-icons/bs';
 import { BiLogOut } from 'react-icons/bi';
+import { MdShoppingCartCheckout } from 'react-icons/md';
   const inter = Inter({ subsets: ['latin'] })
   const outfit = Outfit({subsets:['latin']})
   const quicksand = Quicksand({subsets:['latin']})
@@ -110,12 +111,12 @@ import { BiLogOut } from 'react-icons/bi';
                 />
               </MenuButton>
               <MenuList >
-                <Box align="center" alignItems="center" justifyContent={"center"} justifyItems={"center"}>
-                <MenuItem align="center" alignItems="center" justifyContent={"center"} justifyItems={"center"}><Box mr={2}><FaShoppingCart/></Box>  Cart</MenuItem>
-                <MenuItem align="center" alignItems="center" justifyContent={"center"} justifyItems={"center"}><Box mr={2}><FaUserEdit/></Box>  Edit profile</MenuItem>
-                <MenuItem align="center" alignItems="center" justifyContent={"center"} justifyItems={"center"}><Box mr={2}><BsGear/></Box>  Settings</MenuItem>
+                <Box  >
+                <MenuItem className={outfit.className}  ><Box mr={3}><MdShoppingCartCheckout/></Box>  Checkout</MenuItem>
+                <MenuItem className={outfit.className}  ><Box mr={3}><FaUser/></Box>  Your profile</MenuItem>
+                <MenuItem className={outfit.className}  ><Box mr={3}><BsGear/></Box>  Settings</MenuItem>
                 <MenuDivider />
-                <MenuItem align="center" alignItems="center" justifyContent={"center"} justifyItems={"center"} onClick={() => signOut()}><Box mr={2}><BiLogOut/></Box>Log Out</MenuItem>
+                <MenuItem className={outfit.className}   onClick={() => signOut()}><Box mr={3}><BiLogOut/></Box>Log Out</MenuItem>
                                   
                 </Box>
               </MenuList>
