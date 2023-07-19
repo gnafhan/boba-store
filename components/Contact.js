@@ -144,6 +144,7 @@ export default function ContactFormWithSocialButtons() {
                 p={8}
                 color={useColorModeValue("gray.700", "whiteAlpha.900")}
                 shadow="base"
+                boxSize={{base:"none", md:"lg", lg:"lg"}}
               >
                 <VStack spacing={5}>
                   <FormControl isRequired>
