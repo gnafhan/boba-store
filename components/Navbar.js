@@ -106,7 +106,7 @@ import { signOut, useSession } from 'next-auth/react';
                   }
                 />
               </MenuButton>
-              <MenuList>
+              <MenuList width={"200px"}>
                 <MenuItem>Link 1</MenuItem>
                 <MenuItem>Link 2</MenuItem>
                 <MenuDivider />

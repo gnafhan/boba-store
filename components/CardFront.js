@@ -19,17 +19,23 @@ const outfit = Outfit({ subsets: ["latin"] });
 
 export default function CardFront({name, desc, price, image, addCount}) {
     const localnumber = price
+    const renderImage = (imageUrl) => {
+      const isValidImageUrl =
+        imageUrl.endsWith(".png") || imageUrl.endsWith(".jpg");
+  
+      const finalImageUrl = isValidImageUrl
+        ? imageUrl
+        : "https://i.ibb.co/MSs80PY/2.png";
+  
+      return <Image src={finalImageUrl} alt={desc} borderRadius="lg" />;
+    };
     
   return (
     <Card  maxW="xs" minH="xl" shadow="md" >
       <CardBody>
-        <Image
-          src={image} 
-          alt={desc}
-          //   width="293px"
-          //   height="205"
-          borderRadius="lg"
-        />
+        <div>
+          {renderImage(image)}
+        </div>
         <Stack
           mt="5"
           spacing="0"
@@ -51,11 +57,11 @@ export default function CardFront({name, desc, price, image, addCount}) {
             as={"a"}
             fontSize={"md"}
             fontWeight={600}
-            color={useColorModeValue("white", "#1A202C")}
-            bg={useColorModeValue("#422AFB", "#B9A2FF")}
             className={outfit.className}
             borderRadius={"full"}
             href={"#"}
+            color={useColorModeValue("white", "#1A202C")}
+            bg={useColorModeValue("#422AFB", "#B9A2FF")}
             _hover={{ bg: useColorModeValue("#3311db", "#9374ff") }}
             _active={{ bg: useColorModeValue("#2111a5", "#7551ff") }}
           >

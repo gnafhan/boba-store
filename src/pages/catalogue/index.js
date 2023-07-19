@@ -117,6 +117,8 @@ const ApiDataPage =({ data })=> {
   const addCount = (x) => {
     setCartItem([...cartItem, x]);
   };
+
+  
   return (
     <div>
       {isLoading ? (
