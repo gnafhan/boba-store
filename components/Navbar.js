@@ -196,11 +196,13 @@ import { MdShoppingCartCheckout } from 'react-icons/md';
                   href={navItem.href ?? '#'}
                   fontSize={'sm'}
                   fontWeight={500}
-                  color={linkColor}
+                  color={"linkColor"}
                   _hover={{
                     textDecoration: 'none',
                     color: linkHoverColor,
-                  }}>
+                  }}
+                  
+                  >
                   {navItem.label}
                 </Link>
               </PopoverTrigger>
@@ -241,7 +243,8 @@ import { MdShoppingCartCheckout } from 'react-icons/md';
             <Text
               transition={'all .3s ease'}
               _groupHover={{ color: useColorModeValue('#422AFB', '#B9A2FF') }}
-              fontWeight={500}>
+              fontWeight={500}
+              >
               {label}
             </Text>
             <Text fontSize={'sm'}>{subLabel}</Text>
