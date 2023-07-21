@@ -50,7 +50,10 @@ const AdminUser = ({data}) => {
       <NavbarAdmin active={1} />
       <Flex flexDirection={"row"} flexWrap={"wrap"} justifyContent={"center"} alignItems={"center"} align="center">
         {data.map((item)=>{return (
-          <UsersCard username={item.username} role={item.role}/>
+          <div key={item.username}>
+
+            <UsersCard username={item.username} role={item.role}/>
+          </div>
         )
         })}
       </Flex>

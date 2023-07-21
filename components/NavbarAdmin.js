@@ -36,6 +36,7 @@ import {
   InputLeftElement,
   Input,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import { BiHome } from "react-icons/bi";
 import { BsFillBellFill, BsFillCameraVideoFill, BsInbox } from "react-icons/bs";
 import { IoLogoCodepen } from "react-icons/io5";
@@ -44,6 +45,12 @@ import { MdOutlineInbox, MdOutlineMenu } from "react-icons/md";
 const NavbarAdmin = ({active}) => {
   const bg = useColorModeValue("white", "gray.800");
   const mobileNav = useDisclosure();
+  const [search,setSearch] = useState('')
+
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value)
+  }
   return (
     <Box shadow="md">
       <Box
@@ -240,7 +247,7 @@ const NavbarAdmin = ({active}) => {
             <InputLeftElement pointerEvents="none">
               <SearchIcon />
             </InputLeftElement>
-            <Input type="tel" placeholder="Search..." />
+            <Input onChange={handleSearch} type="text" placeholder="Search..." />
           </InputGroup>
         </HStack>
       </Flex>
