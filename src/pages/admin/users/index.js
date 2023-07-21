@@ -3,6 +3,8 @@ import NavbarAdmin from "../../../../components/NavbarAdmin";
 import UsersCard from "../../../../components/UsersCard";
 import { ColorModeSwitcher } from "../../../../components/ColorModeSwitcher";
 import axios from "axios";
+import { useState } from "react";
+import { useEffect } from "react";
 
 export async function getServerSideProps() {
   try {
@@ -44,12 +46,18 @@ export async function getServerSideProps() {
 }
 
 const AdminUser = ({data}) => {
+  const [search,setSearch] = useState("")
+  const [filtered, setFiltered] = useState(data)
+
+  useEffect(() => {
+    setFiltered(data.filter((item)=>item.username.toLowerCase().includes(search.toLowerCase())))
+  }, [search])
   return (
     <>
     <ColorModeSwitcher/>
-      <NavbarAdmin active={1} />
+      <NavbarAdmin search={search} setFiltered={setFiltered} setSearch={setSearch} active={1} />
       <Flex flexDirection={"row"} flexWrap={"wrap"} justifyContent={"center"} alignItems={"center"} align="center">
-        {data.map((item)=>{return (
+        {filtered.map((item)=>{return (
           <div key={item.username}>
 
             <UsersCard username={item.username} role={item.role}/>

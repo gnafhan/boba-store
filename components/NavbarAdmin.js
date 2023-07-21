@@ -42,12 +42,9 @@ import { BsFillBellFill, BsFillCameraVideoFill, BsInbox } from "react-icons/bs";
 import { IoLogoCodepen } from "react-icons/io5";
 import { MdOutlineInbox, MdOutlineMenu } from "react-icons/md";
 
-const NavbarAdmin = ({active}) => {
+const NavbarAdmin = ({active, setSearch}) => {
   const bg = useColorModeValue("white", "gray.800");
   const mobileNav = useDisclosure();
-  const [search,setSearch] = useState('')
-
-
   const handleSearch = (e) => {
     setSearch(e.target.value)
   }
