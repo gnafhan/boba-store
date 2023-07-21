@@ -41,7 +41,7 @@ import { BsFillBellFill, BsFillCameraVideoFill, BsInbox } from "react-icons/bs";
 import { IoLogoCodepen } from "react-icons/io5";
 import { MdOutlineInbox, MdOutlineMenu } from "react-icons/md";
 
-const NavbarAdmin = () => {
+const NavbarAdmin = ({active}) => {
   const bg = useColorModeValue("white", "gray.800");
   const mobileNav = useDisclosure();
   return (
@@ -174,7 +174,7 @@ const NavbarAdmin = () => {
         borderWidth={0}
         overflowX="auto"
       >
-        <Tabs defaultIndex={0} borderBottomColor="transparent">
+        <Tabs defaultIndex={active} borderBottomColor="transparent">
           <TabList>
             <Tab
               py={4}
@@ -182,8 +182,10 @@ const NavbarAdmin = () => {
               _focus={{
                 boxShadow: "none",
               }}
+              as={"a"}
+              href="/admin"
             >
-              Basic
+              Products
             </Tab>
             <Tab
               py={4}
@@ -194,7 +196,7 @@ const NavbarAdmin = () => {
               as={"a"}
               href="/admin/users"
             >
-              Integrations
+              Users
             </Tab>
             <Tab
               py={4}
@@ -203,7 +205,7 @@ const NavbarAdmin = () => {
                 boxShadow: "none",
               }}
             >
-              Notifications
+              Order
             </Tab>
             <Tab
               py={4}
