@@ -118,8 +118,8 @@ const NavbarAdmin = ({active}) => {
               display="flex"
               alignItems="center"
             >
-              <IoLogoCodepen />
-              <Text>Choc</Text>
+              <IoLogoCodepen mr={2}/>
+              <Text>Admin Dashboard</Text>
             </Box>
           </HStack>
           <HStack spacing={3} display="flex" alignItems="center">
@@ -184,6 +184,7 @@ const NavbarAdmin = ({active}) => {
               }}
               as={"a"}
               href="/admin"
+              textDecor={"none"}
             >
               Products
             </Tab>
@@ -203,7 +204,7 @@ const NavbarAdmin = ({active}) => {
               m={0}
               _focus={{
                 boxShadow: "none",
-              }}
+              }}  
             >
               Order
             </Tab>
