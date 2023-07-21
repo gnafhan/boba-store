@@ -105,14 +105,6 @@ const NavbarAdmin = () => {
                 </Button>
                 <Button
                   w="full"
-                  variant="solid"
-                  colorScheme="brand"
-                  leftIcon={<MdOutlineInbox />}
-                >
-                  Inbox
-                </Button>
-                <Button
-                  w="full"
                   variant="ghost"
                   leftIcon={<BsFillCameraVideoFill />}
                 >
@@ -182,7 +174,7 @@ const NavbarAdmin = () => {
         borderWidth={0}
         overflowX="auto"
       >
-        <Tabs defaultIndex={1} borderBottomColor="transparent">
+        <Tabs defaultIndex={0} borderBottomColor="transparent">
           <TabList>
             <Tab
               py={4}
@@ -199,6 +191,8 @@ const NavbarAdmin = () => {
               _focus={{
                 boxShadow: "none",
               }}
+              as={"a"}
+              href="/admin/users"
             >
               Integrations
             </Tab>

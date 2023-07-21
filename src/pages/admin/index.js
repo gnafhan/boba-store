@@ -171,7 +171,7 @@ const AdminIndex = ({ data, bearer }) => {
 
   return (
     <Box>
-      <NavbarAdmin/>
+      <NavbarAdmin active={0}/>
       <Box ml="5%">
         <Box mt={10}>
           <Button colorScheme="teal" onClick={handleCreate}>
