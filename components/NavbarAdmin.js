@@ -42,7 +42,7 @@ import { BsFillBellFill, BsFillCameraVideoFill, BsInbox } from "react-icons/bs";
 import { IoLogoCodepen } from "react-icons/io5";
 import { MdOutlineInbox, MdOutlineMenu } from "react-icons/md";
 
-const NavbarAdmin = ({active, setSearch}) => {
+const NavbarAdmin = ({active, setSearch, setFiltered, search}) => {
   const bg = useColorModeValue("white", "gray.800");
   const mobileNav = useDisclosure();
   const handleSearch = (e) => {
@@ -244,7 +244,7 @@ const NavbarAdmin = ({active, setSearch}) => {
             <InputLeftElement pointerEvents="none">
               <SearchIcon />
             </InputLeftElement>
-            <Input onChange={handleSearch} type="text" placeholder="Search..." />
+            <Input onChange={handleSearch} type="text" placeholder="Search by name" />
           </InputGroup>
         </HStack>
       </Flex>

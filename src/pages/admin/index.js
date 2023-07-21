@@ -169,9 +169,15 @@ const AdminIndex = ({ data, bearer }) => {
     return <Image src={finalImageUrl} alt="Image" borderRadius="lg" />;
   };
 
+  const [search, setSearch] = useState("")
+  const [filtered, setFiltered] = useState(data)
+
+  useEffect(() => {
+    setFiltered(data.filter((item)=>item.name.toLowerCase().includes(search.toLowerCase())))
+  },[search])
   return (
     <Box>
-      <NavbarAdmin active={0}/>
+      <NavbarAdmin setSearch={setSearch} active={0}/>
       <Box ml="5%">
         <Box mt={10}>
           <Button colorScheme="teal" onClick={handleCreate}>
@@ -180,7 +186,7 @@ const AdminIndex = ({ data, bearer }) => {
           </Button>
         </Box>
         <Box display="flex" flexWrap="wrap" justifyContent="flex-start" p={10}>
-          {data.map((item) => {
+          {filtered.map((item) => {
             return (
               <Card key={item._id} maxW="sm" m={5}>
                 <CardBody>
