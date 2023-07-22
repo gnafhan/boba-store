@@ -23,7 +23,6 @@ export async function getServerSideProps() {
 
     // Mendapatkan data dari response
     const data = response.data;
-    console.log(data)
     const bearer = process.env.BEARER_AUTH;
 
     // Mengembalikan data sebagai props

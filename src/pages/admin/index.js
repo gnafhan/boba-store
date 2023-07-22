@@ -1,4 +1,4 @@
-import { Icon, Link } from "@chakra-ui/react";
+import { Icon, Link, useColorModeValue } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import {
   Stack,
@@ -175,6 +175,22 @@ const AdminIndex = ({ data, bearer }) => {
   useEffect(() => {
     setFiltered(data.filter((item)=>item.name.toLowerCase().includes(search.toLowerCase())))
   },[search])
+
+  useEffect(() => {
+    setFiltered(data)
+    const { create, deleted, edit } = router.query;
+    if (deleted === "success" && !showToast) {
+      toast.closeAll();
+      toast({
+        title: "Sukses",
+        description: "Form berhasil dihapus",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+      setShowToast(true);
+    }
+  },[data])
   return (
     <Box>
       <NavbarAdmin setSearch={setSearch} active={0}/>
@@ -194,7 +210,7 @@ const AdminIndex = ({ data, bearer }) => {
                   <Stack mt="6" spacing="3">
                     <Heading size="md">{item.name}</Heading>
                     <Text>{item.description}</Text>
-                    <Text color="blue.600" fontSize="2xl">
+                    <Text color={useColorModeValue("#422AFB", "#B9A2FF")} fontSize="2xl">
                       {item.price}
                     </Text>
                   </Stack>
