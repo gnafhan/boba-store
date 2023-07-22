@@ -41,10 +41,12 @@ export const authOptions = {
         const usersCollection = db.collection("users");
 
         const user = await usersCollection.findOne({ email });
-        if (!user) throw Error("Couldn't find email'");
+        if (!user) throw Error("Wrong email or password");
 
-        const isValid = await bcrypt.compare(password, user.password);
-        if (!isValid) throw Error("Couldn't find password");
+          const isValid = await bcrypt.compare(password, user.password);
+          if (!isValid) throw Error("Wrong email or password");
+          
+
 
         // You can also Reject this callback with an Error or with a URL:
         // throw new Error('error message') // Redirect to error page
@@ -79,7 +81,13 @@ export const authOptions = {
       }
       return session;
     },
-    async signIn({ profile }) {
+    async signIn({ profile, account }) {
+      console.log(account)
+      // if login with credential return true
+      if (account.provider == "credentials") {
+        return true;
+      }
+
       try {
         const client = await clientPromise;
         const db = client.db("boba");

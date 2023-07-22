@@ -49,6 +49,7 @@ export default function SimpleCard({ providers }) {
 
       if (response.error) {
         // If signIn returned an error, display the error message
+        console.log(response.error)
         setError(response.error);
       } else if (response.ok) {
 
