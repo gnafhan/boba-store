@@ -1,6 +1,37 @@
-import { Box, Button, Flex, Heading } from "@chakra-ui/react";
+import { CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import {
+  Stack,
+  Divider,
+  ButtonGroup,
+  Image,
+  Box,
+  ChakraProvider,
+  useToast,
+  SimpleGrid,
+  Card,
+  CardHeader,
+  CardBody,
+  Text,
+  CardFooter,
+  Heading,
+  Button,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  Lorem,
+  ModalFooter,
+  Flex
+} from "@chakra-ui/react";
+import { useState } from "react";
 
-const UsersCard = ({image, username, role, email}) => {
+const UsersCard = ({image, username, role, item}) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedData, setSelectedData] = useState(null);
+
   return (
     <>
     <Box 
@@ -25,7 +56,7 @@ const UsersCard = ({image, username, role, email}) => {
             bgPos="center"
             style={{
               backgroundImage:
-                "url(https://bit.ly/dan-abramov)",
+                `url(${image})`,
             }}
           ></Box>
 
@@ -85,6 +116,7 @@ const UsersCard = ({image, username, role, email}) => {
                 rounded="lg"
                 textTransform="uppercase"
                 colorScheme="teal"
+                onClick={onOpen}
               >
                 Action
               </Button>
@@ -92,6 +124,25 @@ const UsersCard = ({image, username, role, email}) => {
           </Box>
         </Flex>
         </Box>
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader></ModalHeader>
+            <ModalBody></ModalBody>
+            <ModalFooter>
+              <Button colorScheme="yellow" mr="auto" onClick={"handleEdit"}>
+                <EditIcon mr={2} /> Edit
+              </Button>
+              <Button colorScheme="red" mr="auto" onClick={"handleDelete"}>
+                <DeleteIcon mr={2} />
+                Delete
+              </Button>
+              <Button colorScheme="blue" ml="auto" onClick={onClose}>
+                <CloseIcon></CloseIcon> Close
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
     </>
   );
 };

@@ -59,11 +59,12 @@ const AdminUser = ({data}) => {
         {filtered.map((item)=>{return (
           <div key={item.username}>
 
-            <UsersCard username={item.username} role={item.role}/>
+            <UsersCard image={item.image} username={item.username} role={item.role}/>
           </div>
         )
         })}
       </Flex>
+
     </>
   );
 };
