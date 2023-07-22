@@ -5,6 +5,7 @@ import { ColorModeSwitcher } from "../../../../components/ColorModeSwitcher";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 export async function getServerSideProps() {
   try {
@@ -44,9 +45,18 @@ export async function getServerSideProps() {
   }
 }
 
-const AdminUser = ({data}) => {
+const AdminUser = ({data, bearer}) => {
   const [search,setSearch] = useState("")
   const [filtered, setFiltered] = useState(data)
+  const router = useRouter()
+  const [call, setCall] = useState(false)
+
+  if(call == true) {
+     router.replace({ pathname: "/admin/users", query: { deleted: "success"} });
+     router.reload()
+    setCall(false)
+  }
+
 
   useEffect(() => {
     setFiltered(data.filter((item)=>item.username.toLowerCase().includes(search.toLowerCase())))
@@ -59,7 +69,7 @@ const AdminUser = ({data}) => {
         {filtered.map((item)=>{return (
           <div key={item.username}>
 
-            <UsersCard image={item.image} username={item.username} role={item.role}/>
+            <UsersCard setCall={setCall} bearer={bearer} item={item} image={item.image} username={item.username} role={item.role}/>
           </div>
         )
         })}

@@ -26,11 +26,99 @@ import {
   ModalFooter,
   Flex
 } from "@chakra-ui/react";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { useState } from "react";
 
-const UsersCard = ({image, username, role, item}) => {
+const UsersCard = ({image, username, role, item, bearer, setCall}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [selectedData, setSelectedData] = useState(null);
+  const toast = useToast()
+  const router = useRouter()
+  const [showToast, setShowToast] = useState(false);
+
+  
+  useEffect(() => {
+    const { create, deleted, edit } = router.query;
+
+    if (create === "success" && !showToast) {
+      toast.closeAll();
+      toast({
+        title: "Sukses",
+        description: "Form berhasil disubmit",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+      setShowToast(true);
+    }
+
+    if (deleted === "success" && !showToast) {
+      toast.closeAll();
+      toast({
+        title: "Sukses",
+        description: "Form berhasil dihapus",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+      setShowToast(true);
+    }
+
+    if (edit === "success" && !showToast) {
+      toast.closeAll();
+      toast({
+        title: "Sukses",
+        description: "Form berhasil diedit",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+      setShowToast(true);
+    }
+  }, [router.query, showToast, toast]);
+
+
+
+  const handleDelete = async () => {
+    try {
+      const response = await axios.post(
+        `http://localhost:3000/api/users/delete`,
+        {
+          email: item.email,
+        },
+        { headers: { Authorization: bearer } }
+      );
+      onClose();
+      console.log(response);
+      router.reload()
+      toast.closeAll();
+      toast({
+        title: "Sukses",
+        description: "Form berhasil diedit",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+      setShowToast(true);
+      // Lakukan apa yang perlu dilakukan setelah sukses mengirim data
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: "Error",
+        description: "Terjadi kesalahan saat mengirim form",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+      // Lakukan apa yang perlu dilakukan jika terjadi kesalahan
+    }
+  };
+
+  useEffect(() => {
+    // Efek samping hanya akan dieksekusi saat button diklik
+    console.log('Halaman direload karena tombol diklik');
+  }, [router.asPath]);
 
   return (
     <>
@@ -133,7 +221,7 @@ const UsersCard = ({image, username, role, item}) => {
               <Button colorScheme="yellow" mr="auto" onClick={"handleEdit"}>
                 <EditIcon mr={2} /> Edit
               </Button>
-              <Button colorScheme="red" mr="auto" onClick={"handleDelete"}>
+              <Button colorScheme="red" mr="auto" onClick={handleDelete}>
                 <DeleteIcon mr={2} />
                 Delete
               </Button>
