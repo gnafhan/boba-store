@@ -57,6 +57,7 @@ export const authOptions = {
           email: user.email,
           role: user.role,
           id: user._id,
+          image:user.image || "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"
         };
       },
     }),
@@ -70,6 +71,7 @@ export const authOptions = {
         params.token.role = params.user.role;
         params.token.id = params.user.id;
         params.token.username = params.user.username;
+        params.token.image = params.user.image;
       }
       return params.token;
     },
@@ -78,11 +80,11 @@ export const authOptions = {
         session.user.id = token.id;
         session.user.role = token.role;
         session.user.username = token.username;
+        session.user.image = token.image;
       }
       return session;
     },
     async signIn({ profile, account }) {
-      console.log(account)
       // if login with credential return true
       if (account.provider == "credentials") {
         return true;

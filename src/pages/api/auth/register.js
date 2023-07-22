@@ -40,11 +40,13 @@ export default async function handler(req, res) {
     }
     // if user does not exist, insert into db
     const role = "user"; // default
+    const image = "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"
     await usersCollection.insertOne({
       username,
       email,
       password: hashedPassword,
       role,
+      image
     });
     return res.status(201).json({ message: "User registered successfully." });
     //   },
