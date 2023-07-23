@@ -43,10 +43,8 @@ export const authOptions = {
         const user = await usersCollection.findOne({ email });
         if (!user) throw Error("Wrong email or password");
 
-          const isValid = await bcrypt.compare(password, user.password);
-          if (!isValid) throw Error("Wrong email or password");
-          
-
+        const isValid = await bcrypt.compare(password, user.password);
+        if (!isValid) throw Error("Wrong email or password");
 
         // You can also Reject this callback with an Error or with a URL:
         // throw new Error('error message') // Redirect to error page
@@ -57,7 +55,9 @@ export const authOptions = {
           email: user.email,
           role: user.role,
           id: user._id,
-          image:user.image || "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"
+          image:
+            user.image ||
+            "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png",
         };
       },
     }),
@@ -66,16 +66,30 @@ export const authOptions = {
   secret: process.env.JWT_SECRET,
 
   callbacks: {
-    jwt(params) {
+    async jwt(params) {
       if (params.user?.role) {
         params.token.role = params.user.role;
         params.token.id = params.user.id;
         params.token.username = params.user.username;
         params.token.image = params.user.image;
+      } else {
+        try {
+          const client = await clientPromise;
+          const db = client.db("boba");
+          const usersCollection = db.collection("users");
+          let existingEmailDoc = await usersCollection.findOne({
+            email: params.token.email,
+          });
+          params.token.role = existingEmailDoc.role;
+          params.token.id = existingEmailDoc._id;
+        } catch (err) {
+          console.log(err);
+        }
       }
       return params.token;
     },
-    session({ session, token, account }) {
+    async session({ session, token, user }) {
+      // console.log(token)
       if (session.user) {
         session.user.id = token.id;
         session.user.role = token.role || "user";
@@ -104,11 +118,10 @@ export const authOptions = {
             email: profile.email,
             password: profile.password,
             role: "user",
-            image: profile.image_url || profile.picture
+            image: profile.image_url || profile.picture,
           });
         }
-      return true;
-
+        return true;
       } catch (err) {
         console.log(err);
         return false;
