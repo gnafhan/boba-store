@@ -6,7 +6,7 @@ import isAdmin from "../../../../middleware/isAdmin";
 export default async function handler(req, res) {
   try {
     await isAdmin(req, res, async () => {
-      if (req.method === "GET") {
+      if (req.method === "POST") {
         const { role, email } = req.body;
         const client = await clientPromise;
         const db = client.db("boba");

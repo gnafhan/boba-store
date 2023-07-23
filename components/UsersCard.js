@@ -41,7 +41,7 @@ const UsersCard = ({ image, username, role, item, bearer, setCall }) => {
 
   const handleChangeSelect = (e) => {
     setSelect(e.target.value)
-    console.log(e.target.value)
+    // console.log(e.target.value)
   }
 
   useEffect(() => {
@@ -84,6 +84,44 @@ const UsersCard = ({ image, username, role, item, bearer, setCall }) => {
     }
   }, [router.query, showToast, toast]);
 
+  const handleEdit = async () => {
+    try {
+      const response = await axios.post(
+        `http://localhost:3000/api/users/edit`,
+        {
+          email: item.email,
+          role: select
+        },
+        { headers: { Authorization: bearer } }
+      );
+      onClose();
+      console.log(response);
+      router.reload();
+      toast.closeAll();
+      toast({
+        title: "Sukses",
+        description: "Form berhasil diedit",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+      setShowToast(true);
+      // Lakukan apa yang perlu dilakukan setelah sukses mengirim data
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: "Error",
+        description: "Terjadi kesalahan saat mengirim form",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+      // Lakukan apa yang perlu dilakukan jika terjadi kesalahan
+    }
+  }
+
+
+
   const handleDelete = async () => {
     try {
       const response = await axios.post(
@@ -119,10 +157,6 @@ const UsersCard = ({ image, username, role, item, bearer, setCall }) => {
     }
   };
 
-  useEffect(() => {
-    // Efek samping hanya akan dieksekusi saat button diklik
-    console.log("Halaman direload karena tombol diklik");
-  }, [router.asPath]);
 
   return (
     <>
@@ -223,7 +257,7 @@ const UsersCard = ({ image, username, role, item, bearer, setCall }) => {
             </Select>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="yellow" mr="auto">
+            <Button colorScheme="yellow" mr="auto" onClick={handleEdit}>
               <EditIcon mr={2} /> Edit
             </Button>
             <Button colorScheme="red" mr="auto" onClick={handleDelete}>
