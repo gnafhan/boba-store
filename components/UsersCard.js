@@ -24,20 +24,26 @@ import {
   ModalBody,
   Lorem,
   ModalFooter,
-  Flex
+  Flex,
+  Select,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useState } from "react";
 
-const UsersCard = ({image, username, role, item, bearer, setCall}) => {
+const UsersCard = ({ image, username, role, item, bearer, setCall }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const toast = useToast()
-  const router = useRouter()
+  const toast = useToast();
+  const router = useRouter();
   const [showToast, setShowToast] = useState(false);
+  const [select, setSelect] = useState(role)
 
-  
+  const handleChangeSelect = (e) => {
+    setSelect(e.target.value)
+    console.log(e.target.value)
+  }
+
   useEffect(() => {
     const { create, deleted, edit } = router.query;
 
@@ -78,8 +84,6 @@ const UsersCard = ({image, username, role, item, bearer, setCall}) => {
     }
   }, [router.query, showToast, toast]);
 
-
-
   const handleDelete = async () => {
     try {
       const response = await axios.post(
@@ -91,7 +95,7 @@ const UsersCard = ({image, username, role, item, bearer, setCall}) => {
       );
       onClose();
       console.log(response);
-      router.reload()
+      router.reload();
       toast.closeAll();
       toast({
         title: "Sukses",
@@ -117,16 +121,12 @@ const UsersCard = ({image, username, role, item, bearer, setCall}) => {
 
   useEffect(() => {
     // Efek samping hanya akan dieksekusi saat button diklik
-    console.log('Halaman direload karena tombol diklik');
+    console.log("Halaman direload karena tombol diklik");
   }, [router.asPath]);
 
   return (
     <>
-    <Box 
-    mt={4}
-    mx={"auto"}
-    >
-
+      <Box mt={4} mx={"auto"}>
         <Flex
           direction="column"
           justifyContent="center"
@@ -143,8 +143,7 @@ const UsersCard = ({image, username, role, item, bearer, setCall}) => {
             bgSize="cover"
             bgPos="center"
             style={{
-              backgroundImage:
-                `url(${image})`,
+              backgroundImage: `url(${image})`,
             }}
           ></Box>
 
@@ -163,7 +162,7 @@ const UsersCard = ({image, username, role, item, bearer, setCall}) => {
             overflow="hidden"
           >
             <Heading
-            size={"Xs"}
+              size={"Xs"}
               py={2}
               textAlign="center"
               fontWeight="bold"
@@ -211,26 +210,32 @@ const UsersCard = ({image, username, role, item, bearer, setCall}) => {
             </Flex>
           </Box>
         </Flex>
-        </Box>
-        <Modal isOpen={isOpen} onClose={onClose}>
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader></ModalHeader>
-            <ModalBody></ModalBody>
-            <ModalFooter>
-              <Button colorScheme="yellow" mr="auto" onClick={"handleEdit"}>
-                <EditIcon mr={2} /> Edit
-              </Button>
-              <Button colorScheme="red" mr="auto" onClick={handleDelete}>
-                <DeleteIcon mr={2} />
-                Delete
-              </Button>
-              <Button colorScheme="blue" ml="auto" onClick={onClose}>
-                <CloseIcon></CloseIcon> Close
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
+      </Box>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>{username}</ModalHeader>
+          <ModalBody>
+            <Select defaultValue={role} onChange={handleChangeSelect}>
+
+              <option value="admin">Admin</option>
+              <option value="user">user</option>
+            </Select>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="yellow" mr="auto">
+              <EditIcon mr={2} /> Edit
+            </Button>
+            <Button colorScheme="red" mr="auto" onClick={handleDelete}>
+              <DeleteIcon mr={2} />
+              Delete
+            </Button>
+            <Button colorScheme="blue" ml="auto" onClick={onClose}>
+              <CloseIcon mr={2}/> Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 };
