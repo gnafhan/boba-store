@@ -153,7 +153,7 @@ const ApiDataPage =({ data })=> {
                 >
                   Checkout
                 </Button>
-                <Button onClick={onClose}>Close</Button>
+                <Button onClick={onClose}>Save</Button>
               </ModalFooter>
             </ModalContent>
           </Modal>
