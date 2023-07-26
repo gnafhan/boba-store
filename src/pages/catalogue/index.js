@@ -1,6 +1,4 @@
 import axios from "axios";
-import { ColorModeSwitcher } from "../../../components/ColorModeSwitcher";
-import Fixed from "../../../components/Fixed";
 import CardFront from "../../../components/CardFront";
 import {
   Box,
@@ -11,31 +9,27 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-  ModalOverlay,
-  Skeleton,
-  Text,
-  useBreakpointValue,
+  ModalOverlay, useBreakpointValue,
   useColorModeValue,
-  useDisclosure,
+  useDisclosure
 } from "@chakra-ui/react";
 import { Cart } from "../../../components/Cart";
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import { CardHorizontal } from "../../../components/CardHorizontal";
 import LargeWithNewsletter from "../../../components/Footer";
 import { useEffect } from "react";
 import Spinner from "../../../components/Loader";
 import TableCart from "../../../components/TableCart";
 import UserAuth from "../../../utils/UserAuth";
-
+import { useSession } from "next-auth/react";
+import Fixed from "../../../components/Fixed";
 export async function getServerSideProps() {
   try {
-    // Mengambil data dari API menggunakan axios atau metode lainnya
+
     const response = await axios.get("http://localhost:3000/api/get", {headers:{Authorization:process.env.BEARER_AUTH}});
 
-    // Mendapatkan data dari response
     const data = response.data;
 
-    // Mengembalikan data sebagai props
     return {
       props: {
         data,
@@ -48,6 +42,7 @@ export async function getServerSideProps() {
     return {
       props: {
         data: [],
+        // data2: []
       },
     };
   }
@@ -89,7 +84,7 @@ const CardMd = ({ data, addCount }) => {
   );
 };
 
-const ApiDataPage =({ data })=> {
+const ApiDataPage = ({ data })=> {
   // Gunakan useBreakpointValue dari Chakra UI untuk mendapatkan nilai breakpoint saat ini
   const breakpoint = useBreakpointValue({ base: "sm", sm: "sm", md: "md" });
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -98,6 +93,7 @@ const ApiDataPage =({ data })=> {
   const [isSM, setIsSM] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [cartItem, setCartItem] = useState([]);
+  const {data: session} =  useSession()
 
   const handleCart = (x) => {
     setCartItem(x);
@@ -117,6 +113,24 @@ const ApiDataPage =({ data })=> {
   const addCount = (x) => {
     setCartItem([...cartItem, x]);
   };
+
+  const handleSave = ()=>{
+    // axios.post("http://localhost:3000/api/cart/post", {email:""})
+    
+  }
+
+  useEffect( () => {
+    const cartDb =  axios.post("http://localhost:3000/api/cart/get", {email: session.user.email})
+    cartDb.then((x) => {
+      const data = x.data.products;
+      const hasil = data.flatMap(item => Array(item.jumlah).fill(item.nama));
+      setCartItem(hasil)
+    })
+  },[])
+
+  useEffect(() => {
+    console.log(cartItem);
+  }, [cartItem])
 
   
   return (
@@ -153,7 +167,7 @@ const ApiDataPage =({ data })=> {
                 >
                   Checkout
                 </Button>
-                <Button onClick={onClose}>Save</Button>
+                <Button onClick={handleSave}>Save</Button>
               </ModalFooter>
             </ModalContent>
           </Modal>
