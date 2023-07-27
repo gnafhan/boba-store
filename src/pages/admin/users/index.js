@@ -6,6 +6,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import AdminAuth from './../../../../utils/AdminAuth';
 
 export async function getServerSideProps() {
   try {
@@ -79,4 +80,4 @@ const AdminUser = ({data, bearer}) => {
   );
 };
 
-export default AdminUser;
+export default AdminAuth(AdminUser);
