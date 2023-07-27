@@ -89,7 +89,7 @@ import { MdShoppingCartCheckout } from 'react-icons/md';
             </Flex>
           </Flex>
           
-          {status == "authenticated" ? (<Box>
+          {status == "authenticated" ? (<div>
             <Stack
             flex={{ base: 1, md: 0 }}
             justify={'flex-end'}
@@ -124,7 +124,7 @@ import { MdShoppingCartCheckout } from 'react-icons/md';
           </Flex>
             </Stack>
             
-          </Box>):status =="loading"?null:(<Box><Stack
+          </div>):status =="loading"?null:(<div><Stack
             flex={{ base: 1, md: 0 }}
             justify={'flex-end'}
             direction={'row'}
@@ -166,7 +166,7 @@ import { MdShoppingCartCheckout } from 'react-icons/md';
                 
               Sign Up
             </Button>
-          </Stack></Box>)}
+          </Stack></div>)}
 
           
         </Flex>
@@ -274,7 +274,7 @@ import { MdShoppingCartCheckout } from 'react-icons/md';
         {NAV_ITEMS.map((navItem) => (
           <MobileNavItem key={navItem.label} {...navItem} />
         ))}
-        <Box>
+        <div>
         {status =='authenticated' ?null: (        <Stack spacing={4}>
         <Flex
           py={2}
@@ -323,7 +323,7 @@ import { MdShoppingCartCheckout } from 'react-icons/md';
             </Flex>
             </Stack>)}
 
-        </Box>
+        </div>
       </Stack>
     );
   };
@@ -388,6 +388,28 @@ import { MdShoppingCartCheckout } from 'react-icons/md';
     },
     {
       label: 'Catalogue',
+      // children: [
+      //   {
+      //     label: 'All Boba',
+      //     subLabel: 'All drink including tea, milk, and fruit',
+      //     href: '/catalogue',
+      //   },
+      //   {
+      //     label: 'Tea Boba',
+      //     subLabel: 'This type of boba drink uses the main ingredient of tea as its base, such as black tea or oolong tea.',
+      //     href: '/catalogue',
+      //   },
+      //   {
+      //     label: 'Milk Boba',
+      //     subLabel: "This type of milk boba drink has a milk base, either cow's milk, soy milk, or almond milk",
+      //     href: '/catalogue',
+      //   },
+      //   {
+      //     label: 'Fruit Boba',
+      //     subLabel: 'This type of fruit boba drink uses juice or fruit puree as its base.',
+      //     href: '/catalogue',
+      //   }
+      // ],
       href: '/catalogue',
     },
     {
