@@ -5,31 +5,10 @@ import clientPromise from "@/lib/mongodb";
 export default async function handler(req, res) {
   try {
     // await isAdmin(req, res, async () => {
-    // const {email, products} = req.body;
+    const {email, products} = req.body;
     // Dummy Email
-    const email = "user@example.com";
+    // const email = "user@example.com";
 
-    // Dummy Products
-    const products = [
-      {
-        nama: "Produk A",
-        jumlah: 2,
-        harga: 10000,
-        totalHarga: 20000,
-      },
-      {
-        nama: "Produk D",
-        jumlah: 1,
-        harga: 17000,
-        totalHarga: 15000,
-      },
-      {
-        nama: "Produk B",
-        jumlah: 4,
-        harga: 5000,
-        totalHarga: 15000,
-      },
-    ];
 
     if (!email) {
       return res.status(400).json({ error: "email is required." });

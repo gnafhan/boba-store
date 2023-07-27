@@ -27,12 +27,13 @@ export async function getServerSideProps() {
   try {
 
     const response = await axios.get("http://localhost:3000/api/get", {headers:{Authorization:process.env.BEARER_AUTH}});
-
+    const bearer = process.env.BEARER_AUTH
     const data = response.data;
 
     return {
       props: {
         data,
+        bearer
       },
     };
   } catch (error) {
@@ -84,7 +85,7 @@ const CardMd = ({ data, addCount }) => {
   );
 };
 
-const ApiDataPage = ({ data })=> {
+const ApiDataPage = ({ data, bearer })=> {
   // Gunakan useBreakpointValue dari Chakra UI untuk mendapatkan nilai breakpoint saat ini
   const breakpoint = useBreakpointValue({ base: "sm", sm: "sm", md: "md" });
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -120,11 +121,20 @@ const ApiDataPage = ({ data })=> {
   }
 
   useEffect( () => {
-    const cartDb =  axios.post("http://localhost:3000/api/cart/get", {email: session.user.email})
+    const cartDb =  axios.post("http://localhost:3000/api/cart/get", {email: session.user.email}, {
+      headers: {
+        Authorization: bearer,
+      }
+    })
     cartDb.then((x) => {
       const data = x.data.products;
-      const hasil = data.flatMap(item => Array(item.jumlah).fill(item.nama));
-      setCartItem(hasil)
+      if (!data) {
+        return;
+      }else{
+        const hasil = data.flatMap(item => Array(item.jumlah).fill(item.nama));
+        setCartItem(hasil)
+
+      }
     })
   },[])
 
