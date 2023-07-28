@@ -116,7 +116,31 @@ const ApiDataPage = ({ data, bearer })=> {
   };
 
   const handleSave = ()=>{
-    // axios.post("http://localhost:3000/api/cart/post", {email:""})
+    const daftarHarga = data.map(item =>({
+      name: item.name,
+      price: item.price
+    }))
+    const hasilKonversi = [];
+    cartItem.forEach(namaProduk =>{
+      const hargaProduk = daftarHarga.find(item => item.name === namaProduk).price;
+      const jumlahProduk = cartItem.filter(item => item === namaProduk).length;
+      const totalHargaProduk = hargaProduk * jumlahProduk;
+
+      const objProduk = {
+        nama: namaProduk,
+        jumlah: jumlahProduk,
+        harga: hargaProduk,
+        totalHarga: totalHargaProduk
+      };
+
+      if (!hasilKonversi.some(item => item.nama === namaProduk)) {
+        hasilKonversi.push(objProduk);
+      }
+
+      
+    })
+    console.log(hasilKonversi)
+    // axios.post("http://localhost:3000/api/cart/edit", {email: session.user.email})
     
   }
 
