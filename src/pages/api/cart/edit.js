@@ -1,13 +1,11 @@
 import clientPromise from "@/lib/mongodb";
-// import isAdmin from "../../../middleware/isAdmin";
+import isAdmin from "../../../../middleware/isAdmin";
 // import { getSession } from "next-auth/react";
 
 export default async function handler(req, res) {
   try {
-    // await isAdmin(req, res, async () => {
+    await isAdmin(req, res, async () => {
     const {email, products} = req.body;
-    // Dummy Email
-    // const email = "user@example.com";
 
 
     if (!email) {
@@ -36,8 +34,7 @@ export default async function handler(req, res) {
       });
     }
     res.status(200).send(result);
-    //create new collection
-    // });
+    }, "post");
   } catch (error) {
     res.json(error);
   }

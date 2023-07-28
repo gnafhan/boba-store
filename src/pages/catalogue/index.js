@@ -139,8 +139,12 @@ const ApiDataPage = ({ data, bearer })=> {
 
       
     })
-    console.log(hasilKonversi)
-    // axios.post("http://localhost:3000/api/cart/edit", {email: session.user.email})
+    const response =  axios.post("http://localhost:3000/api/cart/edit", {email: session.user.email, products: hasilKonversi}, {
+      headers: {
+        Authorization: bearer,
+      }
+    })
+    onClose()
     
   }
 
@@ -161,10 +165,6 @@ const ApiDataPage = ({ data, bearer })=> {
       }
     })
   },[])
-
-  useEffect(() => {
-    console.log(cartItem);
-  }, [cartItem])
 
   
   return (
