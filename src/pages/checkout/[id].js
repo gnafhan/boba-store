@@ -61,7 +61,7 @@ const Checkout = ({ data }) => {
   if (!data) {
     return null;
   }
-
+  const primary = useColorModeValue("rgb(12, 20, 90)", "white")
   const [loading, setLoading] = useState(true);
   const [tax, setTax] = useState(null);
   const [total, setTotal] = useState(null);
@@ -99,7 +99,7 @@ const Checkout = ({ data }) => {
           <Box align="start" pt={"40px"}>
             <Text
               className={poppinsBold.className}
-              color={"rgb(12, 20, 90)"}
+              color={primary}
               fontSize="32px"
             >
               Checkout
@@ -108,7 +108,7 @@ const Checkout = ({ data }) => {
               mt={2}
               className={outfitBold.className}
               fontSize={"xl"}
-              color={"rgb(12, 20, 90)"}
+              color={primary}
             >
               Waktunya menikmati boba yang menyegarkan
             </Text>
@@ -121,9 +121,8 @@ const Checkout = ({ data }) => {
               objectFit={"cover"}
               p={3}
               border={"solid 3px"}
-              borderColor={useColorModeValue("rgb(12, 20, 90)", "white")}
+              borderColor={primary}
               borderRadius={"1.625rem"}
-              backgroundColor="white"
             />
             <Box ml={"26px"} mt={"10px"}>
               {loading ? (
@@ -134,7 +133,7 @@ const Checkout = ({ data }) => {
                 <>
                   <Text
                     className={poppinsBold.className}
-                    color={"rgb(12, 20, 90)"}
+                    color={primary}
                     fontSize="25px"
                   >
                     {data.name}
@@ -162,7 +161,7 @@ const Checkout = ({ data }) => {
           <Flex py={"50px"} flexDirection={"column"}>
             <Text
               className={poppinsBold.className}
-              color={"rgb(12, 20, 90)"}
+              color={primary}
               fontSize="20px"
               mb="20px"
             >
@@ -172,14 +171,14 @@ const Checkout = ({ data }) => {
               <Text
                 className={poppins.className}
                 fontSize={"18px"}
-                color={"rgb(12, 20, 90)"}
+                color={primary}
               >
                 Order ID
               </Text>
               <Text
                 className={poppinshalf.className}
                 fontSize={"xl"}
-                color={"rgb(12, 20, 90)"}
+                color={primary}
               >
                 {" "}
                 #12712
@@ -189,7 +188,7 @@ const Checkout = ({ data }) => {
               <Text
                 className={poppins.className}
                 fontSize={"18px"}
-                color={"rgb(12, 20, 90)"}
+                color={primary}
               >
                 Item
               </Text>
@@ -203,7 +202,7 @@ const Checkout = ({ data }) => {
               <Text
                 className={poppinshalf.className}
                 fontSize={"xl"}
-                color={"rgb(12, 20, 90)"}
+                color={primary}
               >
                 {data.name}
               </Text>
@@ -214,7 +213,7 @@ const Checkout = ({ data }) => {
               <Text
                 className={poppins.className}
                 fontSize={"18px"}
-                color={"rgb(12, 20, 90)"}
+                color={primary}
               >
                 Price
               </Text>
@@ -227,7 +226,7 @@ const Checkout = ({ data }) => {
               <Text
                 className={poppinshalf.className}
                 fontSize={"xl"}
-                color={"rgb(12, 20, 90)"}
+                color={primary}
               >
                 {`Rp ${data.price.toLocaleString('id-ID')}`}
               </Text>
@@ -239,7 +238,7 @@ const Checkout = ({ data }) => {
               <Text
                 className={poppins.className}
                 fontSize={"18px"}
-                color={"rgb(12, 20, 90)"}
+                color={primary}
               >
                 Tax 10%
               </Text>
@@ -252,7 +251,7 @@ const Checkout = ({ data }) => {
               <Text
                 className={poppinshalf.className}
                 fontSize={"xl"}
-                color={"rgb(12, 20, 90)"}
+                color={primary}
               >
                 {`Rp ${tax.toLocaleString('id-ID')}`}
               </Text>
@@ -264,7 +263,7 @@ const Checkout = ({ data }) => {
               <Text
                 className={poppins.className}
                 fontSize={"18px"}
-                color={"rgb(12, 20, 90)"}
+                color={primary}
               >
                 Total
               </Text>
@@ -278,7 +277,7 @@ const Checkout = ({ data }) => {
               <Text
                 className={poppinshalf.className}
                 fontSize={"xl"}
-                color={"rgb(12, 20, 90)"}
+                color={primary}
               >
                 {`Rp ${total.toLocaleString('id-ID')}`}
               </Text>
@@ -289,10 +288,10 @@ const Checkout = ({ data }) => {
           <Flex flexDir={"column"}>
             <FormControl flexDir={"column"}>
               <Flex flexDir={"column"}>
-                <Checkbox borderColor={"rgb(12, 20, 90)"} size={"lg"}>
+                <Checkbox borderColor={primary} size={"lg"}>
                   <Text
                     className={poppinshalf.className}
-                    color={"rgb(12, 20, 90)"}
+                    color={primary}
                   >
                     Send receipt to my email
                   </Text>
