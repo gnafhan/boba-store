@@ -15,6 +15,8 @@ import Fixed from "../../../components/Fixed";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import AdminAuth from './../../../utils/AdminAuth';
+import LargeWithNewsletter from "../../../components/Footer";
 const outfitBold = Outfit({ subsets: ["latin"] });
 const quicksandBold = Quicksand({ subsets: ["latin"], weight: "700" });
 const poppinsBold = Poppins({ subsets: ["latin"], weight: "700" });
@@ -25,7 +27,12 @@ export async function getServerSideProps(context) {
     const { id } = context.query;
     const response = await axios.post(
       "http://localhost:3000/api/checkout/get",
-      { id: id }
+      { id: id },
+      {
+        headers: {
+            Authorization: process.env.BEARER_AUTH,
+        }
+      }
     );
     const data = response.data;
 
@@ -76,7 +83,7 @@ const Checkout = ({ data }) => {
           //   alignItem="center"
           justifyContent={"center"}
           flexDirection={"column"}
-          my={{ base: "50px" }}
+          my={{ base: "10px", md:"50px" }}
         >
           <Box align="center">
             <Text
@@ -84,6 +91,7 @@ const Checkout = ({ data }) => {
               pb={"40px"}
               fontSize={50}
               color={useColorModeValue("#422AFB", "white")}
+              display={{base:"none", md: "inherit"}}
             >
               Boba
             </Text>
@@ -293,7 +301,7 @@ const Checkout = ({ data }) => {
                   mt={"50px"}
                   fontSize={"md"}
                   fontWeight={600}
-                  maxWidth={"200px"}
+                  maxWidth={{base: "180px", md: "200px"}}
                   className={poppins.className}
                   variant={"outline"}
                   href={"/auth/signIn"}
@@ -301,6 +309,7 @@ const Checkout = ({ data }) => {
                   bg={useColorModeValue("#422AFB", "#B9A2FF")}
                   _hover={{ bg: useColorModeValue("#3311db", "#9374ff") }}
                   _active={{ bg: useColorModeValue("#2111a5", "#7551ff") }}
+                  borderRadius={"full"}
                 >
                   Confirm and pay
                 </Button>
@@ -309,8 +318,9 @@ const Checkout = ({ data }) => {
           </Flex>
         </Flex>
       </Container>
+      <LargeWithNewsletter/>
     </>
   );
 };
 
-export default Checkout;
+export default AdminAuth(Checkout);
