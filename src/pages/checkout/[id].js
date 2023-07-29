@@ -12,22 +12,53 @@ import {
 import { Outfit, Quicksand, Poppins } from "next/font/google";
 import Fixed from "../../../components/Fixed";
 import { useRouter } from "next/router";
+import axios from "axios";
 const outfitBold = Outfit({ subsets: ["latin"] });
 const quicksandBold = Quicksand({ subsets: ["latin"], weight: "700" });
 const poppinsBold = Poppins({ subsets: ["latin"], weight: "700" });
 const poppins = Poppins({ subsets: ["latin"], weight: "400" });
 const poppinshalf = Poppins({ subsets: ["latin"], weight: "500" });
+export async function getServerSideProps(context) {
+  try {
+    const { id } = context.query;
+    const response = await axios.post(
+      "http://localhost:3000/api/checkout/get",
+      { id: id }
+    );
+    const data = response.data;
 
-const Checkout = () => {
-    const router = useRouter()
-    const {id} = router.query
-    console.log(id)
+    if (!data._id) {
+      return {
+        notFound: true,
+      };
+    }
+
+    return {
+      props: {
+        data,
+      },
+    };
+  } catch (err) {
+    console.log(err);
+    return {
+      props: {
+        data: [],
+      },
+    };
+  }
+}
+
+const Checkout = ({ data }) => {
+  if (!data) {
+    return null;
+  }
+  const router = useRouter();
   return (
     <>
       <Fixed />
       <Container maxW="container.sm">
         <Flex
-        //   alignItem="center"
+          //   alignItem="center"
           justifyContent={"center"}
           flexDirection={"column"}
           my={{ base: "50px" }}
@@ -61,7 +92,7 @@ const Checkout = () => {
           </Box>
           <Flex py={"50px"} flexDirection={"row"}>
             <Image
-              src="https://i.ibb.co/Xsmx4Kv/1.png"
+              src={data.image}
               width={"200px"}
               height={"130px"}
               objectFit={"cover"}

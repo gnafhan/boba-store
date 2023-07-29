@@ -6,9 +6,9 @@ import { ObjectId } from "mongodb";
 //create new collection
 export default async function handler(req, res) {
   try {
+
     // await isAdmin(req, res, async () => {
-    // const { id } = req.body;
-    const id = "644ea228106a46b07092a40d"
+    const { id } = req.body;
     const client = await clientPromise;
     const db = client.db("boba");
     const collection = db.collection("product");
