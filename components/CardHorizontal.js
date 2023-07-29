@@ -16,7 +16,7 @@ const quicksand = Quicksand({ subsets: ["latin"] });
 const outfit = Outfit({ subsets: ["latin"] });
 const outfitBold = Outfit({ subsets: ["latin"], weight: "600" });
 
-export const CardHorizontal = ({ name, desc, image, price, addCount }) => {
+export const CardHorizontal = ({ name, desc, image, price, addCount, id }) => {
   const localnumber = price;
   const renderImage = (imageUrl) => {
     const isValidImageUrl =
@@ -76,6 +76,7 @@ export const CardHorizontal = ({ name, desc, image, price, addCount }) => {
             justifyContent={"space-around"}
           >
             <Button
+              as={"a"}
               size={"sm"}
               mr={3}
               fontWeight={600}
@@ -83,7 +84,7 @@ export const CardHorizontal = ({ name, desc, image, price, addCount }) => {
               bg={useColorModeValue("#422AFB", "#B9A2FF")}
               className={outfit.className}
               borderRadius={"full"}
-              href={"#"}
+              href={`/checkout/${id}`}
               _hover={{ bg: useColorModeValue("#3311db", "#9374ff") }}
               _active={{ bg: useColorModeValue("#2111a5", "#7551ff") }}
             >

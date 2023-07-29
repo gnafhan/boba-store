@@ -59,6 +59,7 @@ const CardSm = ({ data, addCount }) => {
             desc={item.description}
             price={item.price}
             image={item.image}
+            id={item._id}
             addCount={() => addCount(item.name)}
           />
         </Box>
@@ -77,6 +78,8 @@ const CardMd = ({ data, addCount }) => {
             desc={item.description}
             price={item.price}
             image={item.image}
+            id={item._id}
+
             addCount={() => addCount(item.name)}
           />
         </Box>
