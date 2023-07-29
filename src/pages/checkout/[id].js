@@ -52,6 +52,9 @@ const Checkout = ({ data }) => {
   if (!data) {
     return null;
   }
+
+  const tax = data.price * (10/100)
+  const total = tax + data.price
   const router = useRouter();
   return (
     <>
@@ -108,14 +111,14 @@ const Checkout = ({ data }) => {
                 color={"rgb(12, 20, 90)"}
                 fontSize="25px"
               >
-                Boba Tea
+                {data.name}
               </Text>
               <Text
                 className={outfitBold.className}
                 fontSize={{ base: "md", md: "xl" }}
                 color={"#7E8CAC"}
               >
-                A classic milk tea with chewy tapioca pearls.
+                {data.description}
               </Text>
             </Box>
           </Flex>
@@ -159,8 +162,7 @@ const Checkout = ({ data }) => {
                 fontSize={"xl"}
                 color={"rgb(12, 20, 90)"}
               >
-                {" "}
-                Boba Tea
+                {data.name}
               </Text>
             </Flex>
             <Flex justifyContent={"space-between"} mb={"20px"}>
@@ -177,7 +179,7 @@ const Checkout = ({ data }) => {
                 color={"rgb(12, 20, 90)"}
               >
                 {" "}
-                10000
+                {data.price.toLocaleString()}
               </Text>
             </Flex>
             <Flex justifyContent={"space-between"} mb={"20px"}>
@@ -193,8 +195,7 @@ const Checkout = ({ data }) => {
                 fontSize={"xl"}
                 color={"rgb(12, 20, 90)"}
               >
-                {" "}
-                1000
+                {tax.toLocaleString()}
               </Text>
             </Flex>
             <Flex justifyContent={"space-between"} mb={"20px"}>
@@ -210,8 +211,7 @@ const Checkout = ({ data }) => {
                 fontSize={"xl"}
                 color={"rgb(12, 20, 90)"}
               >
-                {" "}
-                11000
+                {total.toLocaleString()}
               </Text>
             </Flex>
           </Flex>
