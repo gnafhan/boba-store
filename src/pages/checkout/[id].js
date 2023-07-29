@@ -62,7 +62,7 @@ const Checkout = ({ data }) => {
   useEffect(() => {
     if (data) {
       setTax(data.price * (10 / 100));
-      setTotal(tax + data.price);
+      setTotal(data.price * (10 / 100) + data.price);
       setLoading(false);
     }
   }, []);
