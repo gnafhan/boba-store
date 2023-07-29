@@ -6,6 +6,7 @@ import {
   Flex,
   FormControl,
   Image,
+  Skeleton,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
@@ -13,6 +14,7 @@ import { Outfit, Quicksand, Poppins } from "next/font/google";
 import Fixed from "../../../components/Fixed";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { useEffect, useState } from "react";
 const outfitBold = Outfit({ subsets: ["latin"] });
 const quicksandBold = Quicksand({ subsets: ["latin"], weight: "700" });
 const poppinsBold = Poppins({ subsets: ["latin"], weight: "700" });
@@ -53,8 +55,18 @@ const Checkout = ({ data }) => {
     return null;
   }
 
-  const tax = data.price * (10/100)
-  const total = tax + data.price
+  const [loading, setLoading] = useState(true);
+  const [tax, setTax] = useState(null);
+  const [total, setTotal] = useState(null);
+
+  useEffect(() => {
+    if (data) {
+      setTax(data.price * (10 / 100));
+      setTotal(tax + data.price);
+      setLoading(false);
+    }
+  }, []);
+
   const router = useRouter();
   return (
     <>
@@ -106,20 +118,36 @@ const Checkout = ({ data }) => {
               backgroundColor="white"
             />
             <Box ml={"26px"} mt={"10px"}>
-              <Text
-                className={poppinsBold.className}
-                color={"rgb(12, 20, 90)"}
-                fontSize="25px"
-              >
-                {data.name}
-              </Text>
-              <Text
-                className={outfitBold.className}
-                fontSize={{ base: "md", md: "xl" }}
-                color={"#7E8CAC"}
-              >
-                {data.description}
-              </Text>
+              {loading ? (
+                <>
+                  <Skeleton height={"25px"} width={"100px"} />
+                </>
+              ) : (
+                <>
+                  <Text
+                    className={poppinsBold.className}
+                    color={"rgb(12, 20, 90)"}
+                    fontSize="25px"
+                  >
+                    {data.name}
+                  </Text>
+                </>
+              )}
+              {loading ? (
+                <>
+                  <Skeleton mt={"10px"} height={"20px"} width={"200px"} />
+                </>
+              ) : (
+                <>
+                  <Text
+                    className={outfitBold.className}
+                    fontSize={{ base: "md", md: "xl" }}
+                    color={"#7E8CAC"}
+                  >
+                    {data.description}
+                  </Text>
+                </>
+              )}
             </Box>
           </Flex>
           <hr />
@@ -157,6 +185,13 @@ const Checkout = ({ data }) => {
               >
                 Item
               </Text>
+              {loading ? (
+                <>
+                  <Skeleton height={"25px"} width={"100px"} />
+                </>
+              ) : (
+                <>
+
               <Text
                 className={poppinshalf.className}
                 fontSize={"xl"}
@@ -164,6 +199,8 @@ const Checkout = ({ data }) => {
               >
                 {data.name}
               </Text>
+                </>
+              )}
             </Flex>
             <Flex justifyContent={"space-between"} mb={"20px"}>
               <Text
@@ -173,14 +210,22 @@ const Checkout = ({ data }) => {
               >
                 Price
               </Text>
+              {loading ? (
+                <>
+                  <Skeleton height={"25px"} width={"100px"} />
+                </>
+              ) : (
+                <>
               <Text
                 className={poppinshalf.className}
                 fontSize={"xl"}
                 color={"rgb(12, 20, 90)"}
               >
-                {" "}
-                {data.price.toLocaleString()}
+                {`Rp ${data.price.toLocaleString('id-ID')}`}
               </Text>
+
+                </>
+              )}
             </Flex>
             <Flex justifyContent={"space-between"} mb={"20px"}>
               <Text
@@ -190,13 +235,22 @@ const Checkout = ({ data }) => {
               >
                 Tax 10%
               </Text>
+              {loading ? (
+                <>
+                  <Skeleton height={"25px"} width={"100px"} />
+                </>
+              ) : (
+                <>
               <Text
                 className={poppinshalf.className}
                 fontSize={"xl"}
                 color={"rgb(12, 20, 90)"}
               >
-                {tax.toLocaleString()}
+                {`Rp ${tax.toLocaleString('id-ID')}`}
               </Text>
+
+                </>
+              )}
             </Flex>
             <Flex justifyContent={"space-between"} mb={"20px"}>
               <Text
@@ -206,13 +260,22 @@ const Checkout = ({ data }) => {
               >
                 Total
               </Text>
+              {loading ? (
+                <>
+                  <Skeleton height={"25px"} width={"100px"} />
+                </>
+              ) : (
+                <>
+
               <Text
                 className={poppinshalf.className}
                 fontSize={"xl"}
                 color={"rgb(12, 20, 90)"}
               >
-                {total.toLocaleString()}
+                {`Rp ${total.toLocaleString('id-ID')}`}
               </Text>
+                </>
+              )}
             </Flex>
           </Flex>
           <Flex flexDir={"column"}>
