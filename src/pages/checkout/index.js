@@ -10,6 +10,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { Outfit, Quicksand, Poppins } from "next/font/google";
+import Fixed from "../../../components/Fixed";
 const outfitBold = Outfit({ subsets: ["latin"] });
 const quicksandBold = Quicksand({ subsets: ["latin"], weight: "700" });
 const poppinsBold = Poppins({ subsets: ["latin"], weight: "700" });
@@ -18,12 +19,14 @@ const poppinshalf = Poppins({ subsets: ["latin"], weight: "500" });
 
 const Checkout = () => {
   return (
+    <>
+    <Fixed/>
     <Container maxW="container.sm">
       <Flex
         alignItem="center"
         justifyContent={"center"}
         flexDirection={"column"}
-        my={{ base: "90px" }}
+        my={{ base: "50px" }}
       >
         <Box align="center">
           <Text
@@ -208,6 +211,7 @@ const Checkout = () => {
         </Flex>
       </Flex>
     </Container>
+    </>
   );
 };
 
