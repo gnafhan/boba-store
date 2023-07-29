@@ -17,6 +17,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import AdminAuth from './../../../utils/AdminAuth';
 import LargeWithNewsletter from "../../../components/Footer";
+import { ColorModeSwitcher } from "../../../components/ColorModeSwitcher";
 const outfitBold = Outfit({ subsets: ["latin"] });
 const quicksandBold = Quicksand({ subsets: ["latin"], weight: "700" });
 const poppinsBold = Poppins({ subsets: ["latin"], weight: "700" });
@@ -77,6 +78,7 @@ const Checkout = ({ data }) => {
   const router = useRouter();
   return (
     <>
+    <ColorModeSwitcher/>
       <Fixed />
       <Container maxW="container.sm">
         <Flex
