@@ -23,6 +23,7 @@ import TableCart from "../../../components/TableCart";
 import UserAuth from "../../../utils/UserAuth";
 import { useSession } from "next-auth/react";
 import Fixed from "../../../components/Fixed";
+import { useRouter } from "next/router";
 export async function getServerSideProps() {
   try {
     const response = await axios.get("http://localhost:3000/api/get", {headers:{Authorization:process.env.BEARER_AUTH}});
@@ -96,6 +97,7 @@ const ApiDataPage = ({ data, bearer })=> {
   const [isSM, setIsSM] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [cartItem, setCartItem] = useState([]);
+  const router = useRouter()
   const {data: session} =  useSession()
 
   const handleCart = (x) => {
@@ -117,7 +119,7 @@ const ApiDataPage = ({ data, bearer })=> {
     setCartItem([...cartItem, x]);
   };
 
-  const handleSave = ()=>{
+  const handleSave = (x)=>{
     const daftarHarga = data.map(item =>({
       name: item.name,
       price: item.price,
@@ -149,6 +151,14 @@ const ApiDataPage = ({ data, bearer })=> {
         Authorization: bearer,
       }
     })
+
+    if(x === "checkout"){
+      response.then(() => {
+        router.push("/cart")
+      })
+    }
+
+
     onClose()
     
   }
@@ -203,10 +213,11 @@ const ApiDataPage = ({ data, bearer })=> {
                   _hover={{ bg: useColorModeValue("#3311db", "#9374ff") }}
                   _active={{ bg: useColorModeValue("#2111a5", "#7551ff") }}
                   mr={3}
+                  onClick={()=>handleSave("checkout")}
                 >
                   Checkout
                 </Button>
-                <Button onClick={handleSave}>Save</Button>
+                <Button onClick={()=>handleSave("save")}>Save</Button>
               </ModalFooter>
             </ModalContent>
           </Modal>
