@@ -25,7 +25,6 @@ import { useSession } from "next-auth/react";
 import Fixed from "../../../components/Fixed";
 export async function getServerSideProps() {
   try {
-
     const response = await axios.get("http://localhost:3000/api/get", {headers:{Authorization:process.env.BEARER_AUTH}});
     const bearer = process.env.BEARER_AUTH
     const data = response.data;
@@ -121,19 +120,22 @@ const ApiDataPage = ({ data, bearer })=> {
   const handleSave = ()=>{
     const daftarHarga = data.map(item =>({
       name: item.name,
-      price: item.price
+      price: item.price,
+      gambar: item.image
     }))
     const hasilKonversi = [];
     cartItem.forEach(namaProduk =>{
       const hargaProduk = daftarHarga.find(item => item.name === namaProduk).price;
       const jumlahProduk = cartItem.filter(item => item === namaProduk).length;
       const totalHargaProduk = hargaProduk * jumlahProduk;
+      const gambarProduk = daftarHarga.find(item => item.name === namaProduk).gambar;
 
       const objProduk = {
         nama: namaProduk,
         jumlah: jumlahProduk,
         harga: hargaProduk,
-        totalHarga: totalHargaProduk
+        totalHarga: totalHargaProduk,
+        gambar: gambarProduk
       };
 
       if (!hasilKonversi.some(item => item.nama === namaProduk)) {
