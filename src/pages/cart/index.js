@@ -17,6 +17,7 @@ import { useSession } from "next-auth/react";
 import Spinner from "../../../components/Loader";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import AdminAuth from './../../../utils/AdminAuth';
 const outfitBold = Outfit({ subsets: ["latin"] });
 const quicksandBold = Quicksand({ subsets: ["latin"], weight: "700" });
 const poppinsBold = Poppins({ subsets: ["latin"], weight: "700" });
@@ -310,4 +311,4 @@ const Checkout = ({ bearer }) => {
   );
 };
 
-export default Checkout;
+export default AdminAuth(Checkout);
