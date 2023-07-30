@@ -1,9 +1,10 @@
 import { Box, Flex, Heading } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import Head from "next/head";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const NotFound = () => {
+  const [isClicked, setIsClicked] = useState(false);
   useEffect(() => {
     // Prevent swipe on touch devices
     const handleTouchMove = (event) => {
@@ -23,8 +24,35 @@ const NotFound = () => {
       window.removeEventListener('wheel', handleWheel);
     };
   }, []);
+
+  const handleMouseMove = (e) =>{
+    const cursor = document.getElementById("custom-cursor");
+    cursor.style.left = `${e.clientX}px`;
+    cursor.style.top = `${e.clientY}px`;
+  }
+
+  const handleCursorClick = () => {
+    // Mengubah state isClicked ketika kursor di klik
+    setIsClicked(!isClicked);
+    setIsClicked(!isClicked);
+  };
+
   return (
-    <Box overflow={"hidden"} minHeight="100vh" padding="2rem" background={"radial-gradient(at 50% -20%, #FFC541, #DF8055) fixed"}>
+    <Box  onClick={handleCursorClick} onMouseMove={handleMouseMove} cursor={"url('https://cdn.custom-cursor.com/db/15878/32/cute-pop-cat-cursor.png')"} overflow={"hidden"} minHeight="100vh" padding="2rem" background={"radial-gradient(at 50% -20%, #FFC541, #DF8055) fixed"}>
+          <Box
+        id="custom-cursor"
+        position="absolute"
+        w="32px"
+        h="32px"
+        backgroundImage={`url(${isClicked ?  'https://cdn.custom-cursor.com/db/15878/32/cute-pop-cat-cursor.png' : 'https://cdn.custom-cursor.com/db/15877/32/cute-pop-cat-pointer.png'})`}
+        backgroundRepeat="no-repeat"
+        backgroundSize="cover"
+        zIndex="9999"
+        onClick={handleCursorClick}
+        cursor={"none"}
+        as="a"
+        href="/"
+      />
     <Box
       justify="center"
       align="center"
@@ -36,8 +64,9 @@ const NotFound = () => {
         <link rel="stylesheet" href="/404Styles.css" />
       </Head>
       <Box
-        as="a"
         href="/"
+        cursor={"none"}
+        as="a"
         textAlign="center"
       >
         <motion.div>
