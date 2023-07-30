@@ -56,14 +56,17 @@ import Confetti from './Confetti';
               _hover={{bg: useColorModeValue('#3311db', '#9374ff')}}
               _active={{bg: useColorModeValue('#2111a5', '#7551ff'),}}
               className={quicksand.className}
+              as="a"
+              href='/catalogue'
               >
               Beli Sekarang
             </Button>
             <Button
             className={quicksand.className}
-            
+            as="a"
+            href='/contact'
             rounded={'full'} px={6} >
-              Lihat Produk
+              Hubungi Penjual
             </Button>
           </Stack>
           <Flex w={'full'}>
