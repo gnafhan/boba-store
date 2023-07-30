@@ -116,7 +116,7 @@ import { MdShoppingCartCheckout } from 'react-icons/md';
                 <MenuItem className={outfit.className}  ><Box mr={3}><FaUser/></Box>  Your profile</MenuItem>
                 <MenuItem className={outfit.className}  ><Box mr={3}><BsGear/></Box>  Settings</MenuItem>
                 <MenuDivider />
-                <MenuItem className={outfit.className}   onClick={() => signOut()}><Box mr={3}><BiLogOut/></Box>Log Out</MenuItem>
+                <MenuItem className={outfit.className}   onClick={() => signOut()}><Box mr={3}><BiLogOut/></Box>Sign Out</MenuItem>
                                   
                 </Box>
               </MenuList>
