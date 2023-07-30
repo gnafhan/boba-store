@@ -112,7 +112,7 @@ import { MdShoppingCartCheckout } from 'react-icons/md';
               </MenuButton>
               <MenuList >
                 <Box  >
-                <MenuItem className={outfit.className}  ><Box mr={3}><MdShoppingCartCheckout/></Box>  Cart</MenuItem>
+                <MenuItem className={outfit.className} as={"a"} href='/cart'><Box mr={3}><MdShoppingCartCheckout/></Box>  Cart</MenuItem>
                 <MenuItem className={outfit.className}  ><Box mr={3}><FaUser/></Box>  Your profile</MenuItem>
                 <MenuItem className={outfit.className}  ><Box mr={3}><BsGear/></Box>  Settings</MenuItem>
                 <MenuDivider />
