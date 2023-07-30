@@ -18,6 +18,7 @@ import { useEffect, useState } from "react";
 import AdminAuth from './../../../utils/AdminAuth';
 import LargeWithNewsletter from "../../../components/Footer";
 import { ColorModeSwitcher } from "../../../components/ColorModeSwitcher";
+import UserAuth from "../../../utils/UserAuth";
 const outfitBold = Outfit({ subsets: ["latin"] });
 const quicksandBold = Quicksand({ subsets: ["latin"], weight: "700" });
 const poppinsBold = Poppins({ subsets: ["latin"], weight: "700" });
@@ -324,4 +325,4 @@ const Checkout = ({ data }) => {
   );
 };
 
-export default AdminAuth(Checkout);
+export default UserAuth(Checkout);
