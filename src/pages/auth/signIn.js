@@ -139,7 +139,7 @@ export default function SimpleCard({ providers }) {
 export async function getServerSideProps(context) {
   const session = await getServerSession(context.req, context.res, authOptions);
 
-
+  // redirect to catalogue
   if (session) {
     return { redirect: { destination: "/catalogue" } };
   }
