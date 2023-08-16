@@ -197,11 +197,11 @@ const ApiDataPage = ({ data, bearer })=> {
             size={"xl"}
             closeOnOverlayClick={true}
             isOpen={isOpen}
-            onClose={onClose}
+            onClose={onClose}  
           >
             <ModalOverlay />
             <ModalContent>
-              <ModalHeader>Create your account</ModalHeader>
+              <ModalHeader>Cart</ModalHeader>
               <ModalCloseButton />
               <ModalBody pb={3}>
                 <TableCart handleCart={handleCart} add={cartItem} />
