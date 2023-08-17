@@ -197,7 +197,7 @@ const ApiDataPage = ({ data, bearer })=> {
             size={"xl"}
             closeOnOverlayClick={true}
             isOpen={isOpen}
-            onClose={onClose}  
+            onClose={onClose}     
           >
             <ModalOverlay />
             <ModalContent>
